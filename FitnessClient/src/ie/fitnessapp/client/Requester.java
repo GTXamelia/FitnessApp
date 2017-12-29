@@ -108,14 +108,11 @@ public class Requester{
 		catch(UnknownHostException unknownHost){
 			System.err.println("You are trying to connect to an unknown host!");
 		}
-		catch(ConnectException ConnectException){
+		catch(ConnectException | NullPointerException NullPointerException){
 			//ConnectException.printStackTrace();
 			System.out.println("Connection Error: "
 					+ "\n 1.Check that server IP: "+ServerOptions.getServerIp()+" and Port: "+ServerOptions.getServerPort()+ " are correct."
 					+ "\n 2.Check server settings in the \"config.properties\".");
-		}
-		catch(NullPointerException NullPointerException){
-			NullPointerException.printStackTrace();
 		}
 		catch(IOException ioException){
 			ioException.printStackTrace();
