@@ -1,8 +1,10 @@
 package ie.fitnessapp.settings;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
@@ -11,11 +13,22 @@ public class FileSettings {
 
 	Properties prop = new Properties();
 	OutputStream output = null;
+	InputStream input = null;
 	File f = new File("config.properties");
 	
 	if(f.exists()){
-		// Doesn't create file
-		System.out.println("File existed");
+		// load a properties file
+		try {
+			input = new FileInputStream("config.properties");
+			prop.load(input);
+			
+			System.out.println(prop.getProperty("serverip"));
+			System.out.println(prop.getProperty("serverport"));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}else{
 		try {
 			
