@@ -24,9 +24,6 @@ public class FileSettings {
 			input = new FileInputStream("config.properties");
 			prop.load(input);
 			
-			System.out.println(prop.getProperty("serverip"));
-			System.out.println(prop.getProperty("serverport"));
-			
 			ServerOptions ServerOptions = new ServerOptions();
 			
 			ServerOptions.setServerIp(prop.getProperty("serverip"));
@@ -44,6 +41,11 @@ public class FileSettings {
 			// set the properties value
 			prop.setProperty("serverip", "192.168.0.11");
 			prop.setProperty("serverport", "2004");
+			
+			ServerOptions ServerOptions = new ServerOptions();
+			
+			ServerOptions.setServerIp("192.168.0.11");
+			ServerOptions.setServerPort("2004");
 
 			// save properties to project root folder
 			prop.store(output, null);

@@ -12,23 +12,28 @@ public class Requester{
 	ObjectOutputStream out;
  	ObjectInputStream in;
  	String message="";
- 	String ipaddress;
  	Scanner stdin;
 	Requester(){}
+	
 	void run()
 	{
 		stdin = new Scanner(System.in);
 		try{
+			
 			//1. creating a socket to connect to the server
-			System.out.println("Please Enter your IP Address");
-			ipaddress = stdin.next();
 			requestSocket = new Socket(ServerOptions.getServerIp(), 2004);
 			System.out.println("Connected to "+ServerOptions.getServerIp()+" in port "+ServerOptions.getServerPort());
+			
+			System.out.println(ServerOptions.getServerIp());
+			System.out.println(ServerOptions.getServerPort());
+			
 			//2. get Input and Output streams
 			out = new ObjectOutputStream(requestSocket.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(requestSocket.getInputStream());
 			System.out.println("Hello");
+			
+			
 			//3: Communicating with the server
 			do{
 				try
@@ -103,9 +108,19 @@ public class Requester{
 		catch(UnknownHostException unknownHost){
 			System.err.println("You are trying to connect to an unknown host!");
 		}
+		catch(ConnectException ConnectException){
+			//ConnectException.printStackTrace();
+			System.out.println("Connection Error: "
+					+ "\n 1.Check that server IP: "+ServerOptions.getServerIp()+" and Port: "+ServerOptions.getServerPort()+ " are correct."
+					+ "\n 2.Check server settings in the \"config.properties\".");
+		}
+		catch(NullPointerException NullPointerException){
+			NullPointerException.printStackTrace();
+		}
 		catch(IOException ioException){
 			ioException.printStackTrace();
 		}
+		
 		finally{
 			//4: Closing connection
 			try{
