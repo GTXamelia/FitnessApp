@@ -5,8 +5,8 @@ package ie.fitnessapp.client;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
-
 import ie.fitnessapp.options.ServerOptions;
+
 public class Requester{
 	Socket requestSocket;
 	ObjectOutputStream out;
@@ -15,13 +15,14 @@ public class Requester{
  	Scanner stdin;
 	Requester(){}
 	
-	void run()
-	{
+	void run(){
+		
 		stdin = new Scanner(System.in);
+		
 		try{
 			
 			//1. creating a socket to connect to the server
-			requestSocket = new Socket(ServerOptions.getServerIp(), 2004);
+			requestSocket = new Socket(ServerOptions.getServerIp(), Integer.parseInt(ServerOptions.getServerPort()));
 			System.out.println("Connected to "+ServerOptions.getServerIp()+" in port "+ServerOptions.getServerPort());
 			
 			System.out.println(ServerOptions.getServerIp());
@@ -36,65 +37,19 @@ public class Requester{
 			
 			//3: Communicating with the server
 			do{
-				try
-				{
+				try{
+					
 					message = (String)in.readObject();
 					System.out.println(message);
 					message = stdin.next();
 					sendMessage(message);
 					
-					if(message.compareToIgnoreCase("1")==0)
-					{
-						message = (String)in.readObject();
-						System.out.println(message);
-						message = stdin.next();
-						sendMessage(message);
-						
-						message = (String)in.readObject();
-						System.out.println(message);
-						message = stdin.next();
-						sendMessage(message);
-						
-						message = (String)in.readObject();
-						System.out.println(message);
+					// Register
+					if(message.equals("1")){
 						
 					}
-					else if(message.compareToIgnoreCase("2")==0)
-					{
-						message = (String)in.readObject();
-						System.out.println(message);
-						message = stdin.next();
-						sendMessage(message);
-						
-						if(message.equalsIgnoreCase("1"))
-						{
-							message = (String)in.readObject();
-							System.out.println(message);
-							message = stdin.next();
-							sendMessage(message);
-							
-							message = (String)in.readObject();
-							System.out.println(message);
-							message = stdin.next();
-							sendMessage(message);
-							
-							message = (String)in.readObject();
-							System.out.println(message);
-							
-						}
-						
-						else if(message.equalsIgnoreCase("2"))
-						{
-							message = (String)in.readObject();
-							System.out.println(message);
-							message = stdin.next();
-							sendMessage(message);
-							
-							message = (String)in.readObject();
-							System.out.println(message);
-							
-						}
-					}
+					
+					
 					
 						
 						
@@ -104,6 +59,7 @@ public class Requester{
 					System.err.println("data received in unknown format");
 				}
 			}while(!message.equals("3"));
+			
 		}
 		catch(UnknownHostException unknownHost){
 			System.err.println("You are trying to connect to an unknown host!");
@@ -130,6 +86,11 @@ public class Requester{
 			}
 		}
 	}
+	
+	
+	
+	
+	
 	void sendMessage(String msg)
 	{
 		try{
@@ -141,6 +102,8 @@ public class Requester{
 			ioException.printStackTrace();
 		}
 	}
+	
+	
 	public static void main(String args[])
 	{
 		Requester client = new Requester();

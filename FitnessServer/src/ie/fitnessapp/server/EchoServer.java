@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import ie.fitnessapp.options.Register;
+
 public class EchoServer {
   public static void main(String[] args) throws Exception {
     ServerSocket m_ServerSocket = new ServerSocket(2004,10);
@@ -23,29 +25,18 @@ public class EchoServer {
 }
 
 class ClientServiceThread extends Thread {
-  Socket clientSocket;
-  String message;
-  int clientID = -1;
-  boolean running = true;
-  ObjectOutputStream out;
-  ObjectInputStream in;
+	Socket clientSocket;
+	String message;
+	int clientID = -1;
+	boolean running = true;
+	ObjectOutputStream out;
+	ObjectInputStream in;
 
-  ClientServiceThread(Socket s, int i) {
-    clientSocket = s;
-    clientID = i;
-  }
-
-  void sendMessage(String msg)
-	{
-		try{
-			out.writeObject(msg);
-			out.flush();
-			
-		}
-		catch(IOException ioException){
-			ioException.printStackTrace();
-		}
+	ClientServiceThread(Socket s, int i) {
+		clientSocket = s;
+	    clientID = i;
 	}
+	
   public void run() {
     System.out.println("Accepted Client : ID - " + clientID + " : Address - "
         + clientSocket.getInetAddress().getHostName());
@@ -54,63 +45,57 @@ class ClientServiceThread extends Thread {
     	out = new ObjectOutputStream(clientSocket.getOutputStream());
 		out.flush();
 		in = new ObjectInputStream(clientSocket.getInputStream());
-		System.out.println("Accepted Client : ID - " + clientID + " : Address - "
-		        + clientSocket.getInetAddress().getHostName());
+		System.out.println("Accepted Client : ID - "+clientID+" : Address - "+clientSocket.getInetAddress().getHostName());
 		
 		
 		do{
 			try
 			{
-				sendMessage("Press 1 for string testing\n Press 2 for the calculator \nPress 3 to exit");
+				sendMessage("1. Register"
+						+ "\n2. Login"
+						+ "\n3. Add Fitness Record"
+						+ "\n4. Add Meal Record"
+						+ "\n5. View Last 10 Fitness Records"
+						+ "\n6. View Last 10 Meal Records"
+						+ "\n7. Delete a Record");
+				
 				message = (String)in.readObject();
 				
 				if(message.compareToIgnoreCase("1")==0)
 				{
-					System.out.println("User wishes to complete the string test");
-					sendMessage("Please enter a string");
-					String string1 = (String)in.readObject();
-					sendMessage("Please enter a string");
-					String string2 = (String)in.readObject();
+					System.out.println("Client: "+clientID+" is trying to register.");
 					
-					if(string1.equals(string2))
-						sendMessage("Both strings are the same");
-					else if(string1.compareToIgnoreCase(string2)>0)
-						sendMessage("String 1 is bigger");
-					else
-						sendMessage("String 2 is bigger");
+					// Asks user to enter their name.
+					// Then stores that input in an object
+					sendMessage("Please enter your name.");
+					Register.setName((String)in.readObject());
+					
+					// Asks user to enter their address.
+					// Then stores that input in an object
+					sendMessage("Please enter your address.");
+					Register.setAddess((String)in.readObject());
+					
+					// Asks user to enter their PPSN.
+					// Then stores that input in an object
+					sendMessage("Please enter your PPSN.");
+					Register.setPPSN((String)in.readObject());
+					
+					// Asks user to enter their age.
+					// Then stores that input in an object
+					sendMessage("Please enter your age.");
+					Register.setAge(Integer.parseInt((String)in.readObject()));
+					
+					// Asks user to enter their weight.
+					// Then stores that input in an object
+					sendMessage("Please enter your weight.");
+					Register.setWeight(Double.parseDouble((String)in.readObject()));
+					
+					// Asks user to enter their height.
+					// Then stores that input in an object
+					sendMessage("Please enter your height.");
+					Register.setHeight(Double.parseDouble((String)in.readObject()));
 				}
 				
-				else if(message.compareToIgnoreCase("2")==0)
-				{
-					System.out.println("User wishes to complete the calculator test");
-					
-					sendMessage("Press 1 for Multiply\nPress 2 for square root\n");
-					message=(String)in.readObject();
-					
-					if(message.equalsIgnoreCase("1"))
-					{
-						sendMessage("Please enter number 1");
-						message = (String)in.readObject();
-						int a = Integer.parseInt(message);
-						
-						sendMessage("Please enter number 2");
-						message = (String)in.readObject();
-						int b = Integer.parseInt(message);
-						
-						sendMessage(""+(a*b));
-					}
-					
-					else if(message.equalsIgnoreCase("2"))
-					{
-						sendMessage("Please enter the number");
-						message = (String)in.readObject();
-						int a = Integer.parseInt(message);
-						
-						sendMessage(""+Math.sqrt(a));
-						
-					}
-					
-				}
 				
 				
 			}
@@ -126,4 +111,15 @@ class ClientServiceThread extends Thread {
       e.printStackTrace();
     }
   }
+  
+  void sendMessage(String msg){
+		try{
+			out.writeObject(msg);
+			out.flush();
+			
+		}
+		catch(IOException ioException){
+			ioException.printStackTrace();
+		}
+	}
 }
