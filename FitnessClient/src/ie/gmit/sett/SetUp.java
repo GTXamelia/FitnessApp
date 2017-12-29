@@ -1,4 +1,4 @@
-package ie.firnessapp.client;
+package ie.gmit.sett;
 
 // This .java file is responsible for settings up the program.
 // It will run each .java file in sequence to set up necessary components 
@@ -8,7 +8,7 @@ public class SetUp {
 		
 		// Runs Settings.java
 		// Responsible for creating the properties file
-		Settings.main(args);
+		FileSettings.main(args);
 		
 		// Runs EstablishConnection.java
 		// Responsible for server connection (If there is a server to connect to)

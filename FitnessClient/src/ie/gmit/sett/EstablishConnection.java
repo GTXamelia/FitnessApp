@@ -1,4 +1,4 @@
-package ie.firnessapp.client;
+package ie.gmit.sett;
 
 public class EstablishConnection {
 
