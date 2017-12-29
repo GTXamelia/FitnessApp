@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import ie.fitnessapp.options.ServerOptions;
+
 public class FileSettings {
   public static void main(String[] args) {
 
@@ -24,6 +26,11 @@ public class FileSettings {
 			
 			System.out.println(prop.getProperty("serverip"));
 			System.out.println(prop.getProperty("serverport"));
+			
+			ServerOptions ServerOptions = new ServerOptions();
+			
+			ServerOptions.setServerIp(prop.getProperty("serverip"));
+			ServerOptions.setServerPort(prop.getProperty("serverport"));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
