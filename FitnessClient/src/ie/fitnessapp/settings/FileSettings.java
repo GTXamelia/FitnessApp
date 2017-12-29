@@ -1,4 +1,4 @@
-package ie.gmit.sett;
+package ie.fitnessapp.settings;
 
 import java.io.File;
 import java.io.FileOutputStream;

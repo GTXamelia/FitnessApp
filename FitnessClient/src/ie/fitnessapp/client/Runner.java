@@ -1,6 +1,6 @@
-package ie.firnessapp.client;
+package ie.fitnessapp.client;
 
-import ie.gmit.sett.SetUp;
+import ie.fitnessapp.settings.SetUp;
 
 public class Runner {
 

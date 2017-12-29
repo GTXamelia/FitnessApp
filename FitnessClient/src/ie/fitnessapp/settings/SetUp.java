@@ -1,4 +1,4 @@
-package ie.gmit.sett;
+package ie.fitnessapp.settings;
 
 // This .java file is responsible for settings up the program.
 // It will run each .java file in sequence to set up necessary components 

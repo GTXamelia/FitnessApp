@@ -1,4 +1,4 @@
-package ie.gmit.sett;
+package ie.fitnessapp.settings;
 
 public class EstablishConnection {
 
