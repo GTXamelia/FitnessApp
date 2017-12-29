@@ -1,5 +1,7 @@
 package ie.fitnessapp.settings;
 
+import ie.fitnessapp.client.Requester;
+
 // This .java file is responsible for settings up the program.
 // It will run each .java file in sequence to set up necessary components 
 public class SetUp {
@@ -12,7 +14,7 @@ public class SetUp {
 		
 		// Runs EstablishConnection.java
 		// Responsible for server connection (If there is a server to connect to)
-		EstablishConnection.main(args);
+		Requester.main(args);
 		
 	}
 

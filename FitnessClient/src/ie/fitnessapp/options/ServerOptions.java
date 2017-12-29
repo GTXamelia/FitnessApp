@@ -1,17 +1,17 @@
 package ie.fitnessapp.options;
 
 public class ServerOptions {
-	private String serverIp;
-	private String serverPort;
+	private static String serverIp;
+	private static String serverPort;
 	
 	// Getters And Setters
-	public String getServerIp() {
+	public static String getServerIp() {
 		return serverIp;
 	}
 	public void setServerIp(String serverIp) {
 		this.serverIp = serverIp;
 	}
-	public String getServerPort() {
+	public static String getServerPort() {
 		return serverPort;
 	}
 	public void setServerPort(String string) {
