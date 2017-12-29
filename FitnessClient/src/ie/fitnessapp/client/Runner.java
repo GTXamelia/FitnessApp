@@ -5,8 +5,15 @@ import ie.fitnessapp.settings.SetUp;
 public class Runner {
 
 	public static void main(String[] args) {
-		SetUp.main(args);
-
+		
+		try{
+			SetUp.main(args);
+		}
+		catch(Exception Exception){
+			System.out.println("Server Error");
+		}
+		
+		
 	}
 
 }

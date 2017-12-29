@@ -9,12 +9,12 @@ public class ServerOptions {
 		return serverIp;
 	}
 	public void setServerIp(String serverIp) {
-		this.serverIp = serverIp;
+		ServerOptions.serverIp = serverIp;
 	}
 	public static String getServerPort() {
 		return serverPort;
 	}
 	public void setServerPort(String string) {
-		this.serverPort = string;
+		ServerOptions.serverPort = string;
 	}
 }
