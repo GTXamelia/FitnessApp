@@ -11,6 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import ie.fitnessapp.options.Register;
+import ie.fitnessapp.settings.Extensions;
 
 public class EchoServer {
   public static void main(String[] args) throws Exception {
@@ -31,6 +32,8 @@ class ClientServiceThread extends Thread {
 	boolean running = true;
 	ObjectOutputStream out;
 	ObjectInputStream in;
+	
+	boolean check = false;
 
 	ClientServiceThread(Socket s, int i) {
 		clientSocket = s;
@@ -40,8 +43,7 @@ class ClientServiceThread extends Thread {
   public void run() {
     System.out.println("Accepted Client : ID - " + clientID + " : Address - "
         + clientSocket.getInetAddress().getHostName());
-    try 
-    {
+    try{
     	out = new ObjectOutputStream(clientSocket.getOutputStream());
 		out.flush();
 		in = new ObjectInputStream(clientSocket.getInputStream());
@@ -49,8 +51,7 @@ class ClientServiceThread extends Thread {
 		
 		
 		do{
-			try
-			{
+			try{
 				sendMessage("1. Register"
 						+ "\n2. Login"
 						+ "\n3. Add Fitness Record"
@@ -61,8 +62,9 @@ class ClientServiceThread extends Thread {
 				
 				message = (String)in.readObject();
 				
-				if(message.compareToIgnoreCase("1")==0)
-				{
+				if(message.compareToIgnoreCase("1")==0){
+					
+					// Outputs message to server console, informing on what the user is doing
 					System.out.println("Client: "+clientID+" is trying to register.");
 					
 					// Asks user to enter their name.
@@ -80,10 +82,16 @@ class ClientServiceThread extends Thread {
 					sendMessage("Please enter your PPSN.");
 					Register.setPPSN((String)in.readObject());
 					
-					// Asks user to enter their age.
-					// Then stores that input in an object
-					sendMessage("Please enter your age.");
+					while (!check){
+						// Asks user to enter their age.
+						// Then stores that input in an object
+						sendMessage("Please enter your age.");
+						check = Extensions.isInteger((String)in.readObject());
+					}
+					// When user is successful 
 					Register.setAge(Integer.parseInt((String)in.readObject()));
+					
+					
 					
 					// Asks user to enter their weight.
 					// Then stores that input in an object

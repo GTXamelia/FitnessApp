@@ -44,14 +44,6 @@ public class Requester{
 					message = stdin.next();
 					sendMessage(message);
 					
-					// Register
-					if(message.equals("1")){
-						
-					}
-					
-					
-					
-						
 						
 				}
 				catch(ClassNotFoundException classNot)
