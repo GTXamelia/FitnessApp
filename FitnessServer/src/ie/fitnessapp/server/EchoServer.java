@@ -42,14 +42,12 @@ class ClientServiceThread extends Thread {
 	}
 	
   public void run() {
-    System.out.println("Accepted Client : ID - " + clientID + " : Address - "
-        + clientSocket.getInetAddress().getHostName());
+    System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection accepted");
     try{
     	out = new ObjectOutputStream(clientSocket.getOutputStream());
 		out.flush();
 		in = new ObjectInputStream(clientSocket.getInputStream());
-		System.out.println("Accepted Client : ID - "+clientID+" : Address - "+clientSocket.getInetAddress().getHostName());
-		
+		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection accepted");
 		
 		do{
 			try{
@@ -66,7 +64,7 @@ class ClientServiceThread extends Thread {
 				if(message.compareToIgnoreCase("1")==0){
 					
 					// Outputs message to server console, informing on what the user is doing
-					System.out.println("Client: "+clientID+" is trying to register.");
+					System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to register");
 					
 					// Asks user to enter their name.
 					// Then stores that input in an object
@@ -111,11 +109,10 @@ class ClientServiceThread extends Thread {
 			
     	}while(!message.equals("3"));
       
-		System.out.println("Ending Client : ID - " + clientID + " : Address - "
-		        + clientSocket.getInetAddress().getHostName());
+		System.out.println("Client " + clientID + ": Address - "+clientSocket.getInetAddress().getHostName()+" - has disconnected");
     }
     catch (SocketException SocketException){
-    	System.out.println("Client "+clientID+"  disconnected unexpectedly.");
+    	System.out.println("Client "+clientID+":  : Address - "+clientSocket.getInetAddress().getHostName()+" - disconnected unexpectedly");
     }
     catch (Exception e) {
       e.printStackTrace();
