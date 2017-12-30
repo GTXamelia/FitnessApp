@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 import ie.fitnessapp.options.Register;
 import ie.fitnessapp.settings.Extensions;
@@ -82,16 +83,13 @@ class ClientServiceThread extends Thread {
 					sendMessage("Please enter your PPSN.");
 					Register.setPPSN((String)in.readObject());
 					
-					while (!check){
-						// Asks user to enter their age.
-						// Then stores that input in an object
-						sendMessage("Please enter your age.");
-						check = Extensions.isInteger((String)in.readObject());
-					}
-					// When user is successful 
+					//while (!check){
+					// Asks user to enter their age.
+					// Then stores that input in an object
+					sendMessage("Please enter your age.");
 					Register.setAge(Integer.parseInt((String)in.readObject()));
-					
-					
+					//check = Extensions.isInteger((String)in.readObject());
+					//}
 					
 					// Asks user to enter their weight.
 					// Then stores that input in an object
@@ -115,7 +113,11 @@ class ClientServiceThread extends Thread {
       
 		System.out.println("Ending Client : ID - " + clientID + " : Address - "
 		        + clientSocket.getInetAddress().getHostName());
-    } catch (Exception e) {
+    }
+    catch (SocketException SocketException){
+    	System.out.println("Client "+clientID+"  disconnected unexpectedly.");
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
