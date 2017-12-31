@@ -1,13 +1,10 @@
 package ie.fitnessapp.settings;
 
 public class Extensions {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 	
+	// Needs fixing
 	public static boolean isInteger(String str) {
+		System.out.println("Test");
 	    if (str == null) {
 	        return false;
 	    }

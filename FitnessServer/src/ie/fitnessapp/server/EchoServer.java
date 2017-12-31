@@ -81,13 +81,10 @@ class ClientServiceThread extends Thread {
 					sendMessage("Please enter your PPSN.");
 					Register.setPPSN((String)in.readObject());
 					
-					//while (!check){
 					// Asks user to enter their age.
 					// Then stores that input in an object
 					sendMessage("Please enter your age.");
 					Register.setAge(Integer.parseInt((String)in.readObject()));
-					//check = Extensions.isInteger((String)in.readObject());
-					//}
 					
 					// Asks user to enter their weight.
 					// Then stores that input in an object
@@ -109,10 +106,11 @@ class ClientServiceThread extends Thread {
 			
     	}while(!message.equals("3"));
       
-		System.out.println("Client " + clientID + ": Address - "+clientSocket.getInetAddress().getHostName()+" - has disconnected");
+		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - has disconnected");
     }
     catch (SocketException SocketException){
-    	System.out.println("Client "+clientID+":  : Address - "+clientSocket.getInetAddress().getHostName()+" - disconnected unexpectedly");
+    	System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - disconnected unexpectedly");
+    	
     }
     catch (Exception e) {
       e.printStackTrace();
