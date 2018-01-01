@@ -30,7 +30,6 @@ public class FileSettings {
 			ServerOptions.setServerPort(prop.getProperty("serverport"));
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}else{

@@ -16,7 +16,7 @@ public class RegisterUser {
 	public static void Register(int clientID, Socket clientSocket, ObjectOutputStream out) {
 		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection accepted");
 		
-		File file = new File("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+".txt");
+		File file = new File("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/User-Details.txt");
 		
 		if(file.exists()){
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - profile already exsists");

@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 import ie.fitnessapp.objects.RegisterOB;
+import ie.fitnessapp.options.LoginUser;
 import ie.fitnessapp.options.RegisterUser;
 
 public class EchoServer {
@@ -31,7 +32,9 @@ class ClientServiceThread extends Thread {
 	ObjectOutputStream out;
 	ObjectInputStream in;
 	
-	boolean check = false;
+	// Misc Vairables
+	String userDetails;
+	boolean check;
 
 	ClientServiceThread(Socket s, int i) {
 		clientSocket = s;
@@ -53,7 +56,8 @@ class ClientServiceThread extends Thread {
 						+ "\n4. Add Meal Record"
 						+ "\n5. View Last 10 Fitness Records"
 						+ "\n6. View Last 10 Meal Records"
-						+ "\n7. Delete a Record\n");
+						+ "\n7. Delete a Record"
+						+ "\n8. Disconnect from system");
 				
 				message = (String)in.readObject();
 				
@@ -93,6 +97,32 @@ class ClientServiceThread extends Thread {
 					RegisterOB.setHeight(Double.parseDouble((String)in.readObject()));
 					
 					RegisterUser.Register(clientID,clientSocket,out);
+				}
+				
+				if(message.compareToIgnoreCase("2")==0){
+					// Outputs message to server console, informing on what the user is doing
+					System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to login");
+					
+					// Asks user to enter their name.
+					// Then stores that input in an object
+					sendMessage("What is your PPSN?");
+					userDetails = (String)in.readObject();
+					
+					check = LoginUser.fileStatus(clientID,clientSocket, out, userDetails);
+					
+					if(check){
+						
+						sendMessage("1. Add Fitness Record"
+								+ "\n2. Add Meal Record"
+								+ "\n3. View Last 10 Fitness Records"
+								+ "\n4. View Last 10 Meal Records"
+								+ "\n5. Delete a Record"
+								+ "\n6. Back to Main Menu");
+						
+						
+					}else if(!check){
+						
+					}
 				}
 				
 				
