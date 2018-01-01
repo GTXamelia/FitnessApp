@@ -29,18 +29,27 @@ public class RegisterUser {
 			}
 			
 		}else{
+			
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - register successful");
+			
+			try {
+				out.writeObject("PPSN ID \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\" added to the system.");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			file.getParentFile().mkdirs();
 			
 			try {
-				PrintWriter writer = new PrintWriter("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+".txt", "UTF-8");
+				PrintWriter writer = new PrintWriter("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/User-Details.txt", "UTF-8");
 				
 				writer.println(ie.fitnessapp.objects.RegisterOB.getName());
 				writer.println(ie.fitnessapp.objects.RegisterOB.getAddess());
 				writer.println(ie.fitnessapp.objects.RegisterOB.getPPSN());
 				writer.println(ie.fitnessapp.objects.RegisterOB.getAge());
-				writer.println(ie.fitnessapp.objects.RegisterOB.getHeight());
 				writer.println(ie.fitnessapp.objects.RegisterOB.getWeight());
+				writer.println(ie.fitnessapp.objects.RegisterOB.getHeight());
 				
 				writer.close();
 			} catch (FileNotFoundException e) {
@@ -60,6 +69,4 @@ public class RegisterUser {
 			
 		
 	}
-	
-	
 }

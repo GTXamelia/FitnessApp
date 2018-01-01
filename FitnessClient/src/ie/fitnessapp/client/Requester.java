@@ -42,9 +42,8 @@ public class Requester{
 					
 					message = (String)in.readObject();
 					System.out.println(message);
-					message = stdin.next();
+					message = stdin.nextLine();
 					sendMessage(message);
-					
 						
 				}
 				catch(ClassNotFoundException classNot)

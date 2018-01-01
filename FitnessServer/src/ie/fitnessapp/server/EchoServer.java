@@ -12,7 +12,8 @@ import ie.fitnessapp.options.RegisterUser;
 
 public class EchoServer {
   public static void main(String[] args) throws Exception {
-    ServerSocket m_ServerSocket = new ServerSocket(2004,10);
+    @SuppressWarnings("resource")
+	ServerSocket m_ServerSocket = new ServerSocket(2004,10);
     int id = 0;
     while (true) {
       Socket clientSocket = m_ServerSocket.accept();
