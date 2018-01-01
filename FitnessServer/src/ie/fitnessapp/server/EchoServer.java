@@ -10,6 +10,7 @@ import java.net.SocketException;
 import ie.fitnessapp.objects.RegisterOB;
 import ie.fitnessapp.options.FitnessRecords;
 import ie.fitnessapp.options.LoginUser;
+import ie.fitnessapp.options.MealRecords;
 import ie.fitnessapp.options.RegisterUser;
 
 public class EchoServer {
@@ -38,6 +39,7 @@ class ClientServiceThread extends Thread {
 	String option1;
 	String option2;
 	boolean check;
+	int maxLength;
 
 	ClientServiceThread(Socket s, int i) {
 		clientSocket = s;
@@ -102,7 +104,7 @@ class ClientServiceThread extends Thread {
 					RegisterUser.Register(clientID,clientSocket);
 				}
 				
-				if(message.compareToIgnoreCase("2")==0){
+				else if(message.compareToIgnoreCase("2")==0){
 					// Outputs message to server console, informing on what the user is doing
 					System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to login");
 					
@@ -131,14 +133,38 @@ class ClientServiceThread extends Thread {
 								sendMessage("1. Walking"
 										+ "\n2. Running"
 										+ "\n3. Cycling");
-								
 								option1 = (String)in.readObject();
 								
 								sendMessage("Duration of activity:");
-								
 								option2 = (String)in.readObject();
 								
 								FitnessRecords.RecordsAdd(clientID, clientSocket, userDetails, option1, option2);
+							}
+							
+							else if(message.compareToIgnoreCase("2")==0){
+								
+								sendMessage("1. Breakfast"
+										+ "\n2. Lunch"
+										+ "\n3. Dinner"
+										+ "\n4. Snack"
+										+ "\n5. Supper");
+								option1 = (String)in.readObject();
+								
+								sendMessage("Description of Meal:");
+								message = (String)in.readObject();
+								
+								maxLength = message.length();
+								
+								if(maxLength >= 100){
+									maxLength = 100;
+								}else{
+									System.out.println(maxLength);
+									maxLength = message.length();
+								}
+								
+								option2 = (message.substring(0, maxLength));
+								
+								MealRecords.MealAdd(clientID, clientSocket, userDetails, option1, option2);
 							}
 						
 						}while(!message.equals("6"));

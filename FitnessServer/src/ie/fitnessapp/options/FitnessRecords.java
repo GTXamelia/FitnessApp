@@ -27,6 +27,7 @@ public class FitnessRecords {
 		
 		if(file.exists()){
 			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records/"+option1+".txt"), true));
+			
 			writer.println(convert);
 			
 			writer.close();
