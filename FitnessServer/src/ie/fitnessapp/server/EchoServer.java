@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 import ie.fitnessapp.objects.RegisterOB;
+import ie.fitnessapp.options.FitnessRecords;
 import ie.fitnessapp.options.LoginUser;
 import ie.fitnessapp.options.RegisterUser;
 
@@ -118,6 +119,12 @@ class ClientServiceThread extends Thread {
 								+ "\n4. View Last 10 Meal Records"
 								+ "\n5. Delete a Record"
 								+ "\n6. Back to Main Menu");
+						
+						message = (String)in.readObject();
+						
+						if(message.compareToIgnoreCase("1")==0){
+							FitnessRecords.Records(clientID,clientSocket, out, userDetails);
+						}
 						
 						
 					}else if(!check){

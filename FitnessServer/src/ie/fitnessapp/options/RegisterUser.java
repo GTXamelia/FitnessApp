@@ -14,7 +14,6 @@ public class RegisterUser {
 	}// End of main
 	
 	public static void Register(int clientID, Socket clientSocket, ObjectOutputStream out) {
-		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection accepted");
 		
 		File file = new File("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/User-Details.txt");
 		
@@ -43,6 +42,7 @@ public class RegisterUser {
 				writer.println(ie.fitnessapp.objects.RegisterOB.getHeight());
 				
 				writer.close();
+				
 			} catch (FileNotFoundException e) {
 				
 				e.printStackTrace();
