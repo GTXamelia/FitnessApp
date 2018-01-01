@@ -1,18 +1,13 @@
 package ie.fitnessapp.server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
 import ie.fitnessapp.options.Register;
-import ie.fitnessapp.settings.Extensions;
 
 public class EchoServer {
   public static void main(String[] args) throws Exception {
@@ -42,12 +37,11 @@ class ClientServiceThread extends Thread {
 	}
 	
   public void run() {
-    System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection accepted");
+    System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection started");
     try{
     	out = new ObjectOutputStream(clientSocket.getOutputStream());
 		out.flush();
 		in = new ObjectInputStream(clientSocket.getInputStream());
-		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection accepted");
 		
 		do{
 			try{
@@ -95,6 +89,8 @@ class ClientServiceThread extends Thread {
 					// Then stores that input in an object
 					sendMessage("Please enter your height.");
 					Register.setHeight(Double.parseDouble((String)in.readObject()));
+					
+					UserOptionManager.Register(clientID,clientSocket);
 				}
 				
 				

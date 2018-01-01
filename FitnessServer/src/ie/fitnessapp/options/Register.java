@@ -9,37 +9,37 @@ public class Register {
 	private static double height;
 	
 	// Getters and Setters
-	public String getName() {
+	public static String getName() {
 		return name;
 	}
 	public static void setName(String name) {
 		Register.name = name;
 	}
-	public String getAddess() {
+	public static String getAddess() {
 		return Addess;
 	}
 	public static void setAddess(String addess) {
 		Register.Addess = addess;
 	}
-	public String getPPSN() {
+	public static String getPPSN() {
 		return PPSN;
 	}
 	public static void setPPSN(String pPSN) {
 		Register.PPSN = pPSN;
 	}
-	public int getAge() {
+	public static int getAge() {
 		return age;
 	}
 	public static void setAge(int age) {
 		Register.age = age;
 	}
-	public double getWeight() {
+	public static double getWeight() {
 		return weight;
 	}
 	public static void setWeight(double weight) {
 		Register.weight = weight;
 	}
-	public double getHeight() {
+	public static double getHeight() {
 		return height;
 	}
 	public static void setHeight(double height) {
