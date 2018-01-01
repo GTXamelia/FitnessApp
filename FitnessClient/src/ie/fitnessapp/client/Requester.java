@@ -80,16 +80,11 @@ public class Requester{
 		}
 	}
 	
-	
-	
-	
-	
 	void sendMessage(String msg)
 	{
 		try{
 			out.writeObject(msg);
 			out.flush();
-			System.out.println("client>" + msg);
 		}
 		catch(IOException ioException){
 			ioException.printStackTrace();

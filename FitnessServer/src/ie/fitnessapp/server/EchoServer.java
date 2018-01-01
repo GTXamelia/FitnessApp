@@ -52,7 +52,7 @@ class ClientServiceThread extends Thread {
 						+ "\n4. Add Meal Record"
 						+ "\n5. View Last 10 Fitness Records"
 						+ "\n6. View Last 10 Meal Records"
-						+ "\n7. Delete a Record");
+						+ "\n7. Delete a Record\n");
 				
 				message = (String)in.readObject();
 				
