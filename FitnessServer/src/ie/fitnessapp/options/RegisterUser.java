@@ -2,6 +2,8 @@ package ie.fitnessapp.options;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
@@ -9,17 +11,23 @@ import java.net.Socket;
 public class RegisterUser {
 
 	public static void main(String[] args) {
-		
-		
 	}// End of main
 	
-	public static void Register(int clientID, Socket clientSocket) {
+	public static void Register(int clientID, Socket clientSocket, ObjectOutputStream out) {
 		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - connection accepted");
 		
 		File file = new File("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+".txt");
 		
 		if(file.exists()){
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - profile already exsists");
+			
+			try {
+				out.writeObject("Profile already exsists for PPSN:\""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\", please try again.");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}else{
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - register successful");
 			file.getParentFile().mkdirs();

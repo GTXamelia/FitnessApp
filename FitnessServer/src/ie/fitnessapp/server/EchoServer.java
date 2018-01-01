@@ -91,7 +91,7 @@ class ClientServiceThread extends Thread {
 					sendMessage("Please enter your height.");
 					RegisterOB.setHeight(Double.parseDouble((String)in.readObject()));
 					
-					RegisterUser.Register(clientID,clientSocket);
+					RegisterUser.Register(clientID,clientSocket,out);
 				}
 				
 				
