@@ -113,33 +113,34 @@ class ClientServiceThread extends Thread {
 					
 					if(check){
 						
-						sendMessage("1. Add Fitness Record"
-								+ "\n2. Add Meal Record"
-								+ "\n3. View Last 10 Fitness Records"
-								+ "\n4. View Last 10 Meal Records"
-								+ "\n5. Delete a Record"
-								+ "\n6. Back to Main Menu");
+						do {
 						
-						message = (String)in.readObject();
+							sendMessage("1. Add Fitness Record"
+									+ "\n2. Add Meal Record"
+									+ "\n3. View Last 10 Fitness Records"
+									+ "\n4. View Last 10 Meal Records"
+									+ "\n5. Delete a Record"
+									+ "\n6. Back to Main Menu");
+							
+							message = (String)in.readObject();
+							
+							if(message.compareToIgnoreCase("1")==0){
+								FitnessRecords.Records(clientID,clientSocket, out, userDetails);
+							}
 						
-						if(message.compareToIgnoreCase("1")==0){
-							FitnessRecords.Records(clientID,clientSocket, out, userDetails);
-						}
+						}while(!message.equals("6"));
 						
 						
 					}else if(!check){
 						
 					}
 				}
-				
-				
-				
 			}
 			catch(ClassNotFoundException classnot){
 				System.err.println("Data received in unknown format");
 			}
 			
-    	}while(!message.equals("3"));
+    	}while(!message.equals("8"));
       
 		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - has disconnected");
     }
@@ -150,13 +151,13 @@ class ClientServiceThread extends Thread {
     catch (Exception e) {
       e.printStackTrace();
     }
-  }
-  
-  void sendMessage(String msg){
+}
+
+// Responsible for sending a message to the user
+void sendMessage(String msg){
 		try{
 			out.writeObject(msg);
 			out.flush();
-			
 		}
 		catch(IOException ioException){
 			ioException.printStackTrace();

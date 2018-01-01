@@ -2,7 +2,6 @@ package ie.fitnessapp.options;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
