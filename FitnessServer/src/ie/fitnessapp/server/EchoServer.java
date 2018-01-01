@@ -125,7 +125,14 @@ class ClientServiceThread extends Thread {
 							message = (String)in.readObject();
 							
 							if(message.compareToIgnoreCase("1")==0){
-								FitnessRecords.Records(clientID,clientSocket, out, userDetails);
+								
+								sendMessage("1. Walking"
+										+ "\n2. Running"
+										+ "\n3. Cycling");
+								
+								message = (String)in.readObject();
+								
+								FitnessRecords.RecordsAdd(clientID, clientSocket, out, userDetails, message);
 							}
 						
 						}while(!message.equals("6"));
