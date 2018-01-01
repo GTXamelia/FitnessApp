@@ -35,6 +35,8 @@ class ClientServiceThread extends Thread {
 	
 	// Misc Vairables
 	String userDetails;
+	String option1;
+	String option2;
 	boolean check;
 
 	ClientServiceThread(Socket s, int i) {
@@ -130,9 +132,13 @@ class ClientServiceThread extends Thread {
 										+ "\n2. Running"
 										+ "\n3. Cycling");
 								
-								message = (String)in.readObject();
+								option1 = (String)in.readObject();
 								
-								FitnessRecords.RecordsAdd(clientID, clientSocket, out, userDetails, message);
+								sendMessage("Duration of activity:");
+								
+								option2 = (String)in.readObject();
+								
+								FitnessRecords.RecordsAdd(clientID, clientSocket, userDetails, option1, option2);
 							}
 						
 						}while(!message.equals("6"));
