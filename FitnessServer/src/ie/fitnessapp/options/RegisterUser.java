@@ -30,15 +30,6 @@ public class RegisterUser {
 			
 		}else{
 			
-			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - register successful");
-			
-			try {
-				out.writeObject("PPSN ID \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\" added to the system.");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
 			file.getParentFile().mkdirs();
 			
 			try {
@@ -60,13 +51,14 @@ public class RegisterUser {
 				e.printStackTrace();
 			}
 			
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - register successful");
+			
+			try {
+				out.writeObject("PPSN ID \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\" added to the system.");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		
-			
-			
-			
-		
-			
-		
 	}
 }

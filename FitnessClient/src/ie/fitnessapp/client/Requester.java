@@ -35,11 +35,9 @@ public class Requester{
 			in = new ObjectInputStream(requestSocket.getInputStream());
 			System.out.println("Hello");
 			
-			
 			//3: Communicating with the server
 			do{
 				try{
-					
 					message = (String)in.readObject();
 					System.out.println(message);
 					message = stdin.nextLine();
