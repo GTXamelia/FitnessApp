@@ -4,6 +4,9 @@
 # Settings File
 *.properties
 
+# Folders
+FitnessServer/Users/*
+
 # Log file
 *.log
 

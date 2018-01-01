@@ -1,6 +1,6 @@
-package ie.fitnessapp.options;
+package ie.fitnessapp.objects;
 
-public class Register {
+public class RegisterOB {
 	private static String name;
 	private static String Addess;
 	private static String PPSN;
@@ -13,37 +13,37 @@ public class Register {
 		return name;
 	}
 	public static void setName(String name) {
-		Register.name = name;
+		RegisterOB.name = name;
 	}
 	public static String getAddess() {
 		return Addess;
 	}
 	public static void setAddess(String addess) {
-		Register.Addess = addess;
+		RegisterOB.Addess = addess;
 	}
 	public static String getPPSN() {
 		return PPSN;
 	}
 	public static void setPPSN(String pPSN) {
-		Register.PPSN = pPSN;
+		RegisterOB.PPSN = pPSN;
 	}
 	public static int getAge() {
 		return age;
 	}
 	public static void setAge(int age) {
-		Register.age = age;
+		RegisterOB.age = age;
 	}
 	public static double getWeight() {
 		return weight;
 	}
 	public static void setWeight(double weight) {
-		Register.weight = weight;
+		RegisterOB.weight = weight;
 	}
 	public static double getHeight() {
 		return height;
 	}
 	public static void setHeight(double height) {
-		Register.height = height;
+		RegisterOB.height = height;
 	}
 
 }

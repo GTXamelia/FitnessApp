@@ -5,7 +5,8 @@ package ie.fitnessapp.client;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
-import ie.fitnessapp.options.ServerOptions;
+
+import ie.fitnessapp.objects.ServerOptions;
 
 public class Requester{
 	Socket requestSocket;

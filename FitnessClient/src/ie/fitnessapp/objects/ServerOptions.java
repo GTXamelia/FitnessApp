@@ -1,4 +1,4 @@
-package ie.fitnessapp.options;
+package ie.fitnessapp.objects;
 
 public class ServerOptions {
 	private static String serverIp;

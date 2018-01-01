@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import ie.fitnessapp.options.ServerOptions;
+import ie.fitnessapp.objects.ServerOptions;
 
 public class FileSettings {
   public static void main(String[] args) {

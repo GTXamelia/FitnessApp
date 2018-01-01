@@ -7,7 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-import ie.fitnessapp.options.Register;
+import ie.fitnessapp.objects.RegisterOB;
+import ie.fitnessapp.options.RegisterUser;
 
 public class EchoServer {
   public static void main(String[] args) throws Exception {
@@ -63,34 +64,34 @@ class ClientServiceThread extends Thread {
 					// Asks user to enter their name.
 					// Then stores that input in an object
 					sendMessage("Please enter your name.");
-					Register.setName((String)in.readObject());
+					RegisterOB.setName((String)in.readObject());
 					
 					// Asks user to enter their address.
 					// Then stores that input in an object
 					sendMessage("Please enter your address.");
-					Register.setAddess((String)in.readObject());
+					RegisterOB.setAddess((String)in.readObject());
 					
 					// Asks user to enter their PPSN.
 					// Then stores that input in an object
 					sendMessage("Please enter your PPSN.");
-					Register.setPPSN((String)in.readObject());
+					RegisterOB.setPPSN((String)in.readObject());
 					
 					// Asks user to enter their age.
 					// Then stores that input in an object
 					sendMessage("Please enter your age.");
-					Register.setAge(Integer.parseInt((String)in.readObject()));
+					RegisterOB.setAge(Integer.parseInt((String)in.readObject()));
 					
 					// Asks user to enter their weight.
 					// Then stores that input in an object
 					sendMessage("Please enter your weight.");
-					Register.setWeight(Double.parseDouble((String)in.readObject()));
+					RegisterOB.setWeight(Double.parseDouble((String)in.readObject()));
 					
 					// Asks user to enter their height.
 					// Then stores that input in an object
 					sendMessage("Please enter your height.");
-					Register.setHeight(Double.parseDouble((String)in.readObject()));
+					RegisterOB.setHeight(Double.parseDouble((String)in.readObject()));
 					
-					UserOptionManager.Register(clientID,clientSocket);
+					RegisterUser.Register(clientID,clientSocket);
 				}
 				
 				
