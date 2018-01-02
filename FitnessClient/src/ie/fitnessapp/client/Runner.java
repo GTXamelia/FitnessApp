@@ -12,6 +12,5 @@ public class Runner {
 		catch(Exception Exception){
 			System.out.println("Server Error");
 		}
-		
 	}
 }
