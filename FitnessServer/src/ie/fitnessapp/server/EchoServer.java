@@ -95,7 +95,7 @@ class ClientServiceThread extends Thread {
 						}
 					}while(!stay);
 					
-					// Reset addon to be used later
+					// Reset addon and stay to be used later
 					OutputMessages.Addon = "";
 					stay = false;
 					
@@ -112,10 +112,26 @@ class ClientServiceThread extends Thread {
 						}
 					}while(!stay);
 					
-					// Asks user to enter their height.
-					// Then stores that input in an object
-					sendMessage("Please enter your height.");
-					RegisterOB.setHeight(Double.parseDouble((String)in.readObject()));
+					// Reset addon and stay to be used later
+					OutputMessages.Addon = "";
+					stay = false;
+					
+					do{
+						try{
+							// Asks user to enter their height.
+							// Then stores that input in an object
+							sendMessage(OutputMessages.Addon+"Please enter your height.");
+							RegisterOB.setHeight(Double.parseDouble((String)in.readObject()));
+							
+							stay = true; // Passes
+						}catch(NumberFormatException NumberFormatException){
+							OutputMessages.Addon = "Failure to set height. Please ensure only to use numbers!\n";
+						}
+					}while(!stay);
+					
+					// Reset addon and stay to be used later
+					OutputMessages.Addon = "";
+					stay = false;
 					
 					RegisterUser.Register(clientID,clientSocket);
 				}
