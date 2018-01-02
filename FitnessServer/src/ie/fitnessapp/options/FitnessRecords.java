@@ -55,6 +55,7 @@ public class FitnessRecords {
 		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));
 		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
 		ArrayList<String> list = new ArrayList<String>();
+		PrintWriter writer;
 		
 		list.clear();
 		
@@ -68,16 +69,12 @@ public class FitnessRecords {
 				list.add(line);
 			}
 			
-			line = "";
-			
 			for(int i=list.size()-1; i>=0; i--){
-				 
-				line += list.get(i) + "\n";
 		        
 		        if(stop == (Integer.parseInt(option2)-1)){
 		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
-		        	list.remove(stop);
-		        	list.remove(stop+1);
+		        	list.remove(i);
+		        	list.remove(i);
 		        }
 		        
 		        stop++;
@@ -87,8 +84,13 @@ public class FitnessRecords {
 		        }
 			}
 			
-			in.close();
+			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt")));
 			
+			for(String str: list) {
+				  writer.println(str);
+			}
+			writer.close();
+			in.close();
 		}
 	}
 	
