@@ -1,13 +1,12 @@
 package ie.fitnessapp.client;
 
-
-
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
 import ie.fitnessapp.objects.ServerOptions;
 
+// Requester allows the user to communicate with the server
 public class Requester{
 	Socket requestSocket;
 	ObjectOutputStream out;
@@ -16,18 +15,22 @@ public class Requester{
  	Scanner stdin;
 	Requester(){}
 	
+	// Runs a new thread to communicate with the server
+	public static void main(String args[]){
+		Requester client = new Requester();
+		client.run();
+	}
+	
+	// Threaded client
 	void run(){
 		
+		// Scanner to get user input
 		stdin = new Scanner(System.in);
 		
 		try{
-			
 			//1. creating a socket to connect to the server
 			requestSocket = new Socket(ServerOptions.getServerIp(), Integer.parseInt(ServerOptions.getServerPort()));
 			System.out.println("Connected to "+ServerOptions.getServerIp()+" in port "+ServerOptions.getServerPort());
-			
-			System.out.println(ServerOptions.getServerIp());
-			System.out.println(ServerOptions.getServerPort());
 			
 			//2. get Input and Output streams
 			out = new ObjectOutputStream(requestSocket.getOutputStream());
@@ -36,6 +39,8 @@ public class Requester{
 			System.out.println("Hello");
 			
 			//3: Communicating with the server
+			// This section will keep running and sending data to the server
+			// Can end it by entering '8' which will end the connecton and program
 			do{
 				try{
 					message = (String)in.readObject();
@@ -46,22 +51,23 @@ public class Requester{
 				}
 				catch(ClassNotFoundException classNot)
 				{
-					System.err.println("data received in unknown format");
+					System.err.println("ERROR: Data received in unknown format");
 				}
+				
 			}while(!message.equals("8"));
 			
 		}
 		catch(UnknownHostException unknownHost){
-			System.err.println("You are trying to connect to an unknown host!");
+			System.err.println("ERROR: You are trying to connect to an unknown host");
 		}
 		catch(ConnectException | NullPointerException NullPointerException){
-			//ConnectException.printStackTrace();
-			System.out.println("Connection Error: "
+			System.out.println("ERROR: Connection Error"
 					+ "\n 1.Check that server IP: "+ServerOptions.getServerIp()+" and Port: "+ServerOptions.getServerPort()+ " are correct."
 					+ "\n 2.Check server settings in the \"config.properties\".");
 		}
 		catch(IOException ioException){
-			ioException.printStackTrace();
+			System.out.println("ERROR: Input/Output Error");
+					
 		}
 		
 		finally{
@@ -77,8 +83,8 @@ public class Requester{
 		}
 	}
 	
-	void sendMessage(String msg)
-	{
+	// sendMessage sends a string that is sent to it to the server
+	void sendMessage(String msg){
 		try{
 			out.writeObject(msg);
 			out.flush();
@@ -86,12 +92,5 @@ public class Requester{
 		catch(IOException ioException){
 			ioException.printStackTrace();
 		}
-	}
-	
-	
-	public static void main(String args[])
-	{
-		Requester client = new Requester();
-		client.run();
 	}
 }
