@@ -166,6 +166,10 @@ class ClientServiceThread extends Thread {
 								
 								MealRecords.MealAdd(clientID, clientSocket, userDetails, option1, option2);
 							}
+							
+							else if (message.compareToIgnoreCase("3")==0){
+								MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);
+							}
 						
 						}while(!message.equals("6"));
 						

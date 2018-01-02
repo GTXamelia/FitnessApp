@@ -24,7 +24,6 @@ public class FitnessRecords {
 		
 		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
 		
-		
 		if(file.exists()){
 			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
 			
@@ -35,7 +34,7 @@ public class FitnessRecords {
 		}else{
 			file.getParentFile().mkdirs();
 			
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records/.txt"), true));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
 			
 			writer.println(option1);
 			writer.println(convert);

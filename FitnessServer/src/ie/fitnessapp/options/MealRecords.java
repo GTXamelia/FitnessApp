@@ -1,10 +1,13 @@
 package ie.fitnessapp.options;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class MealRecords {
 
@@ -22,7 +25,7 @@ public class MealRecords {
 			option1 = "Supper";
 		}
 		
-		File file = new File("Users/"+userDetails+"/Meal-Records/"+option1+".txt");
+		File file = new File("Users/"+userDetails+"/Meal-Records.txt");
 		
 		
 		if(file.exists()){
@@ -43,5 +46,30 @@ public class MealRecords {
 			writer.close();
 			
 		}
+	}
+	
+	public static void MealListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
+		
+		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));
+		File file = new File("Users/"+userDetails+"/Meal-Records.txt");
+		ArrayList<String> list = new ArrayList<String>();
+		String line;
+		
+		list.clear();
+		
+		if(file.exists()){
+			
+			while((line = in.readLine()) != null){
+				list.add(line);
+			}
+			
+			 for(int i=list.size()-1; i>=0; i--) {
+			        System.out.print(list.get(i));
+			 }
+		
+		}else{
+			System.out.println("Failed");
+		}
+		in.close();
 	}
 }
