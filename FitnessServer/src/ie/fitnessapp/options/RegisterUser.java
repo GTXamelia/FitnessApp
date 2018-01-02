@@ -13,18 +13,20 @@ public class RegisterUser {
 	
 	public static void Register(int clientID, Socket clientSocket) {
 		
+		PrintWriter writer;
 		File file = new File("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/User-Details.txt");
 		
 		if(file.exists()){
-			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried registering with PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\" (Already Registered)");
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried registering with PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\" (Already Registered)"); // Outputs message to console displaying client status
 			
 		}else{
 			
-			file.getParentFile().mkdirs();
+			file.getParentFile().mkdirs(); // Create file directory using reference 'file' 
 			
 			try {
-				PrintWriter writer = new PrintWriter("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/User-Details.txt", "UTF-8");
+				writer = new PrintWriter("Users/"+ie.fitnessapp.objects.RegisterOB.getPPSN()+"/User-Details.txt", "UTF-8"); 
 				
+				// Prints each element of the RegisterOB object to the file
 				writer.println(ie.fitnessapp.objects.RegisterOB.getName());
 				writer.println(ie.fitnessapp.objects.RegisterOB.getAddess());
 				writer.println(ie.fitnessapp.objects.RegisterOB.getPPSN());
@@ -32,7 +34,7 @@ public class RegisterUser {
 				writer.println(ie.fitnessapp.objects.RegisterOB.getWeight());
 				writer.println(ie.fitnessapp.objects.RegisterOB.getHeight());
 				
-				writer.close();
+				writer.close(); // Close PrintWriter
 				
 			} catch (FileNotFoundException e) {
 				
@@ -41,9 +43,7 @@ public class RegisterUser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - registered with PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\"");
-			
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - registered with PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\""); // Outputs message to console displaying client status
 		}
 	}
 }

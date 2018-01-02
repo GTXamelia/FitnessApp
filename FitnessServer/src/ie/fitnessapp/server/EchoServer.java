@@ -34,7 +34,7 @@ class ClientServiceThread extends Thread {
 	ObjectOutputStream out;
 	ObjectInputStream in;
 	
-	// Misc Vairables
+	// Misc Variables
 	String userDetails;
 	String option1;
 	String option2;
@@ -195,7 +195,7 @@ class ClientServiceThread extends Thread {
 						
 						
 					}else if(!check){
-						
+						// TODO Output message to user saying login failed
 					}
 				}
 			}
