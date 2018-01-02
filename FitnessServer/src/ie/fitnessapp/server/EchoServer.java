@@ -110,16 +110,18 @@ class ClientServiceThread extends Thread {
 					check = LoginUser.fileStatus(clientID,clientSocket, out, userDetails);
 					
 					if(check){
-						System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - logged in");
+						System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - logged in with PPSN: "+userDetails);
 						do {
 						
 							sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.LoginMenu);
 							
 							message = (String)in.readObject();
 							
+							// Add fitness record
 							if(message.compareToIgnoreCase("1")==0){
+								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is adding a fitness record");
 								
-								sendMessage(OutputMessages.FitnessMenu);
+								sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.FitnessMenu);
 								option1 = (String)in.readObject();
 								
 								sendMessage("Duration of activity:");
@@ -128,9 +130,11 @@ class ClientServiceThread extends Thread {
 								FitnessRecords.RecordsAdd(clientID, clientSocket, userDetails, option1, option2);
 							}
 							
+							// Add meal record
 							else if(message.compareToIgnoreCase("2")==0){
+								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is adding a meal record");
 								
-								sendMessage(OutputMessages.MealMenu);
+								sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.MealMenu);
 								option1 = (String)in.readObject();
 								
 								sendMessage("Description of Meal:");
@@ -150,26 +154,35 @@ class ClientServiceThread extends Thread {
 								MealRecords.MealAdd(clientID, clientSocket, userDetails, option1, option2);
 							}
 							
+							// View last 10 meal records
 							else if (message.compareToIgnoreCase("3")==0){
+								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 meal records");
+								
 								MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 meal records
 							}
 							
+							// View last 10 fitness records
 							else if (message.compareToIgnoreCase("4")==0){
+								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 fitness records");
+								
 								FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 fitness records
 							}
 							
+							// Delete record
 							else if (message.compareToIgnoreCase("5")==0){
+								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to delete a record");
 								
-								sendMessage(OutputMessages.DeleteMenu);
+								sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.DeleteMenu);
 								message = (String)in.readObject();
 								
 								sendMessage("What element would you like to delete");
 								option1 = (String)in.readObject();
 								
 								if(message.equals("1")){
+									System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to delete a meal record");
 									MealRecords.MealDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}else if(message.equals("2")){
-									System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - Is trying to delete");
+									System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to delete a fitness record");
 									FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}
 							}

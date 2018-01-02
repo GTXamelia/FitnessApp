@@ -36,7 +36,6 @@ public class Requester{
 			out = new ObjectOutputStream(requestSocket.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(requestSocket.getInputStream());
-			System.out.println("Hello");
 			
 			//3: Communicating with the server
 			// This section will keep running and sending data to the server

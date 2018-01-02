@@ -37,11 +37,13 @@ public class FitnessRecords {
 		// If file exists information is appended to it line by line
 		// If there is no file found one is created and information appended to it line by line
 		if(file.exists()){
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - added "+option1+" "+convert); // Client status output to console
 			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
 			
 			writer.println(convert); // Header
 			writer.println(option1); // Data
 		}else{
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - created \"Fitness-Records.txt\" and added "+option1+" "+convert); // Client status output to console
 			file.getParentFile().mkdirs(); // Create file directory using reference 'file'
 			
 			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
@@ -66,6 +68,8 @@ public class FitnessRecords {
 		
 		// Variables
 		String line;
+		String keep1 = null;
+		String keep2 = null;
 		int stop = 0;
 		
 		// If file exists data will be read in from the file and added to an array list
@@ -85,7 +89,10 @@ public class FitnessRecords {
 				
 		        if(stop == (Integer.parseInt(option1))){
 		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
+		        	
+		        	keep1 = list.get(i);
 		        	list.remove(i); // Remove data
+		        	keep2 = list.get(i);
 		        	list.remove(i); // Remove header
 		        	i = 0;
 		        }
@@ -108,6 +115,8 @@ public class FitnessRecords {
 			writer.close(); // Close writer
 			in.close(); // Close buffered reader
 		}
+		
+		OutputMessages.Addon = "Deleted "+keep1+": "+keep2;
 	}
 	
 	public static void FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
