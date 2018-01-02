@@ -49,8 +49,50 @@ public class FitnessRecords {
 		}
 		writer.close(); // Close PrintWriter
 	}
+
+	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
+		
+		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));
+		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
+		ArrayList<String> list = new ArrayList<String>();
+		
+		list.clear();
+		
+		// Variables
+		String line;
+		int stop = 0;
+		
+		if(file.exists()){
+			
+			while((line = in.readLine()) != null){
+				list.add(line);
+			}
+			
+			line = "";
+			
+			for(int i=list.size()-1; i>=0; i--){
+				 
+				line += list.get(i) + "\n";
+		        
+		        if(stop == (Integer.parseInt(option2)-1)){
+		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
+		        	list.remove(stop);
+		        	list.remove(stop+1);
+		        }
+		        
+		        stop++;
+		        
+		        if(stop == 20){
+		        	i = 0;
+		        }
+			}
+			
+			in.close();
+			
+		}
+	}
 	
-public static void FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
+	public static void FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
 		
 		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));
 		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");

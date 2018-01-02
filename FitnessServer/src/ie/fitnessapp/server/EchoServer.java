@@ -181,14 +181,17 @@ class ClientServiceThread extends Thread {
 										+ "\n1. Meal Record"
 										+ "\n2. Fitness Record"
 										+ "\n3. Back");
-								option1 = (String)in.readObject();
+								message = (String)in.readObject();
+								
+								sendMessage("What element would you like to delete");
+								option2 = (String)in.readObject();
 								
 								if(message.equals("1")){
-									MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
+									//MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
 								}else if(message.equals("2")){
-									MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
+									System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - Is trying to delete");
+									FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
 								}
-								
 							}
 						
 						}while(!message.equals("6"));
