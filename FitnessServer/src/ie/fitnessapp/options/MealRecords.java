@@ -60,14 +60,17 @@ public class MealRecords {
 		list.clear();
 		
 		if(file.exists()){
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is accessing meal records");
 			
+			// Read from file line by line and add contents to list array
 			while((line = in.readLine()) != null){
 				list.add(line);
 			}
 			
+			line = "";
 			 for(int i=list.size()-1; i>=0; i--) {
 				 
-				 System.out.println(list.get(i));
+				 line += list.get(i) + "\n";
 				 
 		         stop++;
 		        
@@ -75,9 +78,11 @@ public class MealRecords {
 		        	i = 0;
 		        }
 			 }
+			 
+			 System.out.println(line);
 		
 		}else{
-			System.out.println("Failed");
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to show list of meals (No meal records)");
 		}
 		in.close();
 	}
