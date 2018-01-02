@@ -49,6 +49,67 @@ public class MealRecords {
 		writer.close(); // Closes PrintWriter
 	}
 	
+	public static void MealDelete(int clientID, Socket clientSocket, String userDetails, String option1) throws IOException, ClassNotFoundException {
+		
+		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));
+		File file = new File("Users/"+userDetails+"/Meal-Records.txt");
+		ArrayList<String> list = new ArrayList<String>();
+		PrintWriter writer;
+		
+		// Clear array list in case there is remaining data from previous deletions
+		list.clear();
+		
+		// Variables
+		String line;
+		int stop = 0;
+		
+		// If file exists data will be read in from the file and added to an array list
+		// the last 10 elements of the array list will be taken in 
+		// the element that the user chose will be remove from the array list
+		// the remaining elements in the array list will then be output back to the file
+		if(file.exists()){
+			
+			// Read in all data from file and add to array list
+			while((line = in.readLine()) != null){
+				list.add(line);
+			}
+			
+			// Run threw array list from top to bottom
+			// Only last 10 are taken
+			for(int i=list.size()-1; i>=0; i--){
+				
+		        if(stop == (Integer.parseInt(option1))){
+		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
+		        	System.out.println("Test "+option1);
+		        	System.out.println("Test "+i+" "+list.get(i));
+		        	list.remove(i); // Remove data
+		        	System.out.println("Test "+option1);
+		        	System.out.println("Test "+i+" "+list.get(i));
+		        	list.remove(i); // Remove header
+		        	i = 0;
+		        }
+		        
+		        stop++;
+		        
+		        // If stop == 20 then 10 headers and 10 information prices have been read from array list
+		        // the for loop is then stopped by making i = 0
+		        if(stop == 20){
+		        	i = 0;
+		        }
+			}
+			
+			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Meal-Records.txt")));
+			
+			// Print all elements of array list to file
+			for(String str: list) {
+				  writer.println(str);
+			}
+			writer.close(); // Close writer
+			in.close(); // Close buffered reader
+		}
+		
+	}
+	
 	public static void MealListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
 		
 		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));

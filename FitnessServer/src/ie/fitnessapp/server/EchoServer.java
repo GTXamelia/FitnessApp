@@ -184,18 +184,16 @@ class ClientServiceThread extends Thread {
 								message = (String)in.readObject();
 								
 								sendMessage("What element would you like to delete");
-								option2 = (String)in.readObject();
+								option1 = (String)in.readObject();
 								
 								if(message.equals("1")){
-									//MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
+									MealRecords.MealDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}else if(message.equals("2")){
 									System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - Is trying to delete");
-									FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
+									FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}
 							}
-						
 						}while(!message.equals("6"));
-						
 						
 					}else if(!check){
 						// TODO Output message to user saying login failed

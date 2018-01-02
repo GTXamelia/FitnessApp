@@ -50,7 +50,7 @@ public class FitnessRecords {
 		writer.close(); // Close PrintWriter
 	}
 
-	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
+	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1) throws IOException, ClassNotFoundException {
 		
 		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));
 		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
@@ -79,10 +79,11 @@ public class FitnessRecords {
 			// Only last 10 are taken
 			for(int i=list.size()-1; i>=0; i--){
 				
-		        if(stop == (Integer.parseInt(option2)-1)){
+		        if(stop == (Integer.parseInt(option1))){
 		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
 		        	list.remove(i); // Remove data
 		        	list.remove(i); // Remove header
+		        	i = 0;
 		        }
 		        
 		        stop++;
