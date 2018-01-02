@@ -14,15 +14,15 @@ public class MealRecords {
 	public static void MealAdd(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
 		
 		if (option1.equals("1")){
-			option1 = "Breakfast";
+			option1 = "Breakfast:";
 		}else if (option1.equals("2")){
-			option1 = "Lunch";
+			option1 = "Lunch:";
 		}else if (option1.equals("3")){
-			option1 = "Dinner";
+			option1 = "Dinner:";
 		}else if (option1.equals("4")){
-			option1 = "Snack";
+			option1 = "Snack:";
 		}else if (option1.equals("5")){
-			option1 = "Supper";
+			option1 = "Supper:";
 		}
 		
 		File file = new File("Users/"+userDetails+"/Meal-Records.txt");
@@ -31,8 +31,8 @@ public class MealRecords {
 		if(file.exists()){
 			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Meal-Records.txt"), true));
 			
-			writer.println(option1);
-			writer.println(option2);
+			writer.println(option2); // Information about meal
+			writer.println(option1); // Meal header
 			
 			writer.close();
 		}else{
@@ -40,8 +40,8 @@ public class MealRecords {
 			
 			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Meal-Records.txt"), true));
 			
-			writer.println(option1);
-			writer.println(option2);
+			writer.println(option2); // Information about meal
+			writer.println(option1); // Meal header
 			
 			writer.close();
 			
@@ -53,7 +53,9 @@ public class MealRecords {
 		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));
 		File file = new File("Users/"+userDetails+"/Meal-Records.txt");
 		ArrayList<String> list = new ArrayList<String>();
+		
 		String line;
+		int stop = 0;
 		
 		list.clear();
 		
@@ -64,7 +66,14 @@ public class MealRecords {
 			}
 			
 			 for(int i=list.size()-1; i>=0; i--) {
-			        System.out.println(list.get(i));
+				 
+				 System.out.println(list.get(i));
+				 
+		         stop++;
+		        
+		        if(stop == 20){
+		        	i = 0;
+		        }
 			 }
 		
 		}else{
