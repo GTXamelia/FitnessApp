@@ -41,6 +41,8 @@ class ClientServiceThread extends Thread {
 	String option2;
 	boolean check;
 	int maxLength;
+	boolean stay = false;
+	
 
 	ClientServiceThread(Socket s, int i) {
 		clientSocket = s;
@@ -80,15 +82,35 @@ class ClientServiceThread extends Thread {
 					sendMessage("Please enter your PPSN.");
 					RegisterOB.setPPSN((String)in.readObject());
 					
-					// Asks user to enter their age.
-					// Then stores that input in an object
-					sendMessage("Please enter your age.");
-					RegisterOB.setAge(Integer.parseInt((String)in.readObject()));
+					do{
+						try{
+							// Asks user to enter their age.
+							// Then stores that input in an object
+							sendMessage(OutputMessages.Addon+"Please enter your age.");
+							RegisterOB.setAge(Integer.parseInt((String)in.readObject()));
+							
+							stay = true; // Passes
+						}catch(NumberFormatException NumberFormatException){
+							OutputMessages.Addon = "Failure to set age. Please ensure only to use numbers!\n";
+						}
+					}while(!stay);
 					
-					// Asks user to enter their weight.
-					// Then stores that input in an object
-					sendMessage("Please enter your weight.");
-					RegisterOB.setWeight(Double.parseDouble((String)in.readObject()));
+					// Reset addon to be used later
+					OutputMessages.Addon = "";
+					stay = false;
+					
+					do{
+						try{
+							// Asks user to enter their weight.
+							// Then stores that input in an object
+							sendMessage(OutputMessages.Addon+"Please enter your weight.");
+							RegisterOB.setWeight(Double.parseDouble((String)in.readObject()));
+							
+							stay = true; // Passes
+						}catch(NumberFormatException NumberFormatException){
+							OutputMessages.Addon = "Failure to set weight. Please ensure only to use numbers!\n";
+						}
+					}while(!stay);
 					
 					// Asks user to enter their height.
 					// Then stores that input in an object

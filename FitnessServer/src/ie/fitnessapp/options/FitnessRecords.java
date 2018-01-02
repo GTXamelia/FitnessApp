@@ -116,7 +116,7 @@ public class FitnessRecords {
 			in.close(); // Close buffered reader
 		}
 		
-		OutputMessages.Addon = "Deleted "+keep1+": "+keep2;
+		OutputMessages.Addon = "Deleted "+keep1+": "+keep2+" from the file";
 	}
 	
 	public static void FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
@@ -126,8 +126,9 @@ public class FitnessRecords {
 		ArrayList<String> list = new ArrayList<String>();
 		
 		// Variables
-		String line;
+		String line = null;
 		int stop = 0;
+		int counter = 0;
 		
 		// Clears list if any information is present
 		// Stop data being appended twice if run twice
@@ -150,8 +151,12 @@ public class FitnessRecords {
 			// Goes to end of array list get the last 10 elements in the list
 			// If there is less than 10 then it will get all of them
 			for(int i=list.size()-1; i>=0; i--){
-				 
-				line += list.get(i) + "\n";// Adds all data from list to a string
+				
+				if(list.get(i).contains("Walking:") || list.get(i).contains("Running:") || list.get(i).contains("Cycling:")){
+					line += ((stop/2)+1)+"."+list.get(i) + "\n";
+				}else{
+					line += list.get(i) + "\n";// Adds all data from list to a string
+				}
 				 
 		        stop++;
 		        
@@ -163,5 +168,8 @@ public class FitnessRecords {
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to show list of fitness records (No fitness records)"); // Client status output to console
 		}
 		in.close(); // Closes buffered reader
+		
+		OutputMessages.Addon = line;
 	}
+	
 }
