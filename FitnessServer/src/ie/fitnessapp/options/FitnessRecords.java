@@ -57,28 +57,38 @@ public class FitnessRecords {
 		ArrayList<String> list = new ArrayList<String>();
 		PrintWriter writer;
 		
+		// Clear array list in case there is remaining data from previous deletions
 		list.clear();
 		
 		// Variables
 		String line;
 		int stop = 0;
 		
+		// If file exists data will be read in from the file and added to an array list
+		// the last 10 elements of the array list will be taken in 
+		// the element that the user chose will be remove from the array list
+		// the remaining elements in the array list will then be output back to the file
 		if(file.exists()){
 			
+			// Read in all data from file and add to array list
 			while((line = in.readLine()) != null){
 				list.add(line);
 			}
 			
+			// Run threw array list from top to bottom
+			// Only last 10 are taken
 			for(int i=list.size()-1; i>=0; i--){
-		        
+				
 		        if(stop == (Integer.parseInt(option2)-1)){
 		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
-		        	list.remove(i);
-		        	list.remove(i);
+		        	list.remove(i); // Remove data
+		        	list.remove(i); // Remove header
 		        }
 		        
 		        stop++;
 		        
+		        // If stop == 20 then 10 headers and 10 information prices have been read from array list
+		        // the for loop is then stopped by making i = 0
 		        if(stop == 20){
 		        	i = 0;
 		        }
@@ -86,11 +96,12 @@ public class FitnessRecords {
 			
 			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt")));
 			
+			// Print all elements of array list to file
 			for(String str: list) {
 				  writer.println(str);
 			}
-			writer.close();
-			in.close();
+			writer.close(); // Close writer
+			in.close(); // Close buffered reader
 		}
 	}
 	
