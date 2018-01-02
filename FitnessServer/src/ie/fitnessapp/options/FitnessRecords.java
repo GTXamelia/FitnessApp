@@ -22,20 +22,22 @@ public class FitnessRecords {
 		
 		convert = Double.parseDouble(option2);
 		
-		File file = new File("Users/"+userDetails+"/Fitness-Records/"+option1+".txt");
+		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
 		
 		
 		if(file.exists()){
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records/"+option1+".txt"), true));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
 			
+			writer.println(option1);
 			writer.println(convert);
 			
 			writer.close();
 		}else{
 			file.getParentFile().mkdirs();
 			
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records/"+option1+".txt"), true));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records/.txt"), true));
 			
+			writer.println(option1);
 			writer.println(convert);
 			
 			writer.close();
