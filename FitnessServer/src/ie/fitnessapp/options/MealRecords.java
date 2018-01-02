@@ -66,7 +66,7 @@ public class MealRecords {
 		// If file exists data is read from the file line by line and stored in an array list
 		// If no file is found then nothing will happen
 		if(file.exists()){
-			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is accessing meal records");
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is accessing meal records"); // Client status output to console
 			
 			// Read from file line by line and add contents to list array
 			// Stops when it reaches end of file
@@ -90,8 +90,7 @@ public class MealRecords {
 		        }
 			}
 		}else{
-			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to show list of meals (No meal records)");
-			line = "No meal records found";
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to show list of meals (No meal records)"); // Client status output to console
 		}
 		in.close(); // Closes buffered reader
 	}

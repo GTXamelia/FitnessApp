@@ -116,7 +116,7 @@ class ClientServiceThread extends Thread {
 					check = LoginUser.fileStatus(clientID,clientSocket, out, userDetails);
 					
 					if(check){
-						
+						System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - logged in");
 						do {
 						
 							sendMessage("1. Add Fitness Record"
@@ -169,6 +169,10 @@ class ClientServiceThread extends Thread {
 							
 							else if (message.compareToIgnoreCase("3")==0){
 								MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);
+							}
+							
+							else if (message.compareToIgnoreCase("4")==0){
+								FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2);
 							}
 						
 						}while(!message.equals("6"));
