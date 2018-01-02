@@ -168,11 +168,27 @@ class ClientServiceThread extends Thread {
 							}
 							
 							else if (message.compareToIgnoreCase("3")==0){
-								MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);
+								MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 meal records
 							}
 							
 							else if (message.compareToIgnoreCase("4")==0){
-								FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2);
+								FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 fitness records
+							}
+							
+							else if (message.compareToIgnoreCase("5")==0){
+								
+								sendMessage("Delete:"
+										+ "\n1. Meal Record"
+										+ "\n2. Fitness Record"
+										+ "\n3. Back");
+								option1 = (String)in.readObject();
+								
+								if(message.equals("1")){
+									MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
+								}else if(message.equals("2")){
+									MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 Meal records
+								}
+								
 							}
 						
 						}while(!message.equals("6"));

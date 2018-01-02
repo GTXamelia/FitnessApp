@@ -13,38 +13,41 @@ public class FitnessRecords {
 
 	public static void RecordsAdd(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
 		
-		double convert;
-		
-		if (option1.equals("1")){
-			option1 = "Walking";
-		}else if (option1.equals("2")){
-			option1 = "Running";
-		}else if (option1.equals("3")){
-			option1 = "Cycling";
-		}
-		
-		convert = Double.parseDouble(option2);
-		
+		PrintWriter writer;
 		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
 		
-		if(file.exists()){
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
-			
-			writer.println(option1);
-			writer.println(convert);
-			
-			writer.close();
-		}else{
-			file.getParentFile().mkdirs();
-			
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
-			
-			writer.println(option1);
-			writer.println(convert);
-			
-			writer.close();
-			
+		// Variables
+		double convert;
+		
+		// Gets the user selection and get the associated string
+		if (option1.equals("1")){
+			option1 = "Walking:";
+		}else if (option1.equals("2")){
+			option1 = "Running:";
+		}else if (option1.equals("3")){
+			option1 = "Cycling:";
 		}
+		
+		// Convert string to double
+		convert = Double.parseDouble(option2);
+		
+		// Checks if file exists
+		// If file exists information is appended to it line by line
+		// If there is no file found one is created and information appended to it line by line
+		if(file.exists()){
+			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
+			
+			writer.println(convert); // Data
+			writer.println(option1); // Header
+		}else{
+			file.getParentFile().mkdirs(); // Create file directory using reference 'file'
+			
+			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
+			
+			writer.println(convert); // Data
+			writer.println(option1); // Header
+		}
+		writer.close(); // Close PrintWriter
 	}
 	
 public static void FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
