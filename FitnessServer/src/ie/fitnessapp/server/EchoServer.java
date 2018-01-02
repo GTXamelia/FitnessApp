@@ -12,6 +12,7 @@ import ie.fitnessapp.options.FitnessRecords;
 import ie.fitnessapp.options.LoginUser;
 import ie.fitnessapp.options.MealRecords;
 import ie.fitnessapp.options.RegisterUser;
+import ie.fitnessapp.settings.OutputMessages;
 
 public class EchoServer {
   public static void main(String[] args) throws Exception {
@@ -55,14 +56,7 @@ class ClientServiceThread extends Thread {
 		
 		do{
 			try{
-				sendMessage("1. Register"
-						+ "\n2. Login"
-						+ "\n3. Add Fitness Record"
-						+ "\n4. Add Meal Record"
-						+ "\n5. View Last 10 Fitness Records"
-						+ "\n6. View Last 10 Meal Records"
-						+ "\n7. Delete a Record"
-						+ "\n8. Disconnect from system");
+				sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.MainMenu);
 				
 				message = (String)in.readObject();
 				
@@ -119,20 +113,13 @@ class ClientServiceThread extends Thread {
 						System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - logged in");
 						do {
 						
-							sendMessage("1. Add Fitness Record"
-									+ "\n2. Add Meal Record"
-									+ "\n3. View Last 10 Fitness Records"
-									+ "\n4. View Last 10 Meal Records"
-									+ "\n5. Delete a Record"
-									+ "\n6. Back to Main Menu");
+							sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.LoginMenu);
 							
 							message = (String)in.readObject();
 							
 							if(message.compareToIgnoreCase("1")==0){
 								
-								sendMessage("1. Walking"
-										+ "\n2. Running"
-										+ "\n3. Cycling");
+								sendMessage(OutputMessages.FitnessMenu);
 								option1 = (String)in.readObject();
 								
 								sendMessage("Duration of activity:");
@@ -143,11 +130,7 @@ class ClientServiceThread extends Thread {
 							
 							else if(message.compareToIgnoreCase("2")==0){
 								
-								sendMessage("1. Breakfast"
-										+ "\n2. Lunch"
-										+ "\n3. Dinner"
-										+ "\n4. Snack"
-										+ "\n5. Supper");
+								sendMessage(OutputMessages.MealMenu);
 								option1 = (String)in.readObject();
 								
 								sendMessage("Description of Meal:");
@@ -177,10 +160,7 @@ class ClientServiceThread extends Thread {
 							
 							else if (message.compareToIgnoreCase("5")==0){
 								
-								sendMessage("Delete:"
-										+ "\n1. Meal Record"
-										+ "\n2. Fitness Record"
-										+ "\n3. Back");
+								sendMessage(OutputMessages.DeleteMenu);
 								message = (String)in.readObject();
 								
 								sendMessage("What element would you like to delete");
@@ -217,8 +197,8 @@ class ClientServiceThread extends Thread {
     }
 }
 
-// Responsible for sending a message to the user
-void sendMessage(String msg){
+  // Responsible for sending a message to the user
+  void sendMessage(String msg){
 		try{
 			out.writeObject(msg);
 			out.flush();
@@ -227,4 +207,6 @@ void sendMessage(String msg){
 			ioException.printStackTrace();
 		}
 	}
+  
+  
 }

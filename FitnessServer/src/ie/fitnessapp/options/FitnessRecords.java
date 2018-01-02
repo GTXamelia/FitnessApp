@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import ie.fitnessapp.settings.OutputMessages;
+
 public class FitnessRecords {
 
 	public static void RecordsAdd(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
@@ -37,8 +39,8 @@ public class FitnessRecords {
 		if(file.exists()){
 			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Fitness-Records.txt"), true));
 			
-			writer.println(convert); // Data
-			writer.println(option1); // Header
+			writer.println(convert); // Header
+			writer.println(option1); // Data
 		}else{
 			file.getParentFile().mkdirs(); // Create file directory using reference 'file'
 			
@@ -48,6 +50,8 @@ public class FitnessRecords {
 			writer.println(option1); // Header
 		}
 		writer.close(); // Close PrintWriter
+		
+		OutputMessages.Addon = option1 +" "+  convert +" added to file";
 	}
 
 	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1) throws IOException, ClassNotFoundException {

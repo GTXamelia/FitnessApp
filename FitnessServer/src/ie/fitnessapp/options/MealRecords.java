@@ -79,13 +79,8 @@ public class MealRecords {
 			for(int i=list.size()-1; i>=0; i--){
 				
 		        if(stop == (Integer.parseInt(option1))){
-		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
-		        	System.out.println("Test "+option1);
-		        	System.out.println("Test "+i+" "+list.get(i));
-		        	list.remove(i); // Remove data
-		        	System.out.println("Test "+option1);
-		        	System.out.println("Test "+i+" "+list.get(i));
 		        	list.remove(i); // Remove header
+		        	list.remove(i); // Remove data
 		        	i = 0;
 		        }
 		        
