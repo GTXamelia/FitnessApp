@@ -38,7 +38,6 @@ public class MealRecords {
 			writer.println(option2); // Information about meal
 			writer.println(option1); // Meal header
 			
-			writer.close();
 		}else{
 			file.getParentFile().mkdirs(); // Create file directory using reference 'file'
 			
@@ -46,9 +45,8 @@ public class MealRecords {
 			
 			writer.println(option2); // Information about meal
 			writer.println(option1); // Meal header
-			
-			writer.close();
 		}
+		writer.close(); // Closes PrintWriter
 	}
 	
 	public static void MealListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
