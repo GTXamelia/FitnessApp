@@ -79,22 +79,23 @@ public class MealRecords {
 			
 			// Run threw array list from top to bottom
 			// Only last 10 are taken
-			for(int i=list.size()-1; i>=0; i--){
-				
-		        if(stop == (Integer.parseInt(option1))){
-		        	
-		        	keep = list.get(i);
-		        	list.remove(i-1); // Remove data
-		        	i = 0;
-		        }
-		        
-		        stop++;
-		        
-		        // If stop == 20 then 10 headers and 10 information prices have been read from array list
-		        // the for loop is then stopped by making i = 0
-		        if(stop == 20){
-		        	i = 0;
-		        }
+			for (int i = list.size(); i >= 0; i--) {
+
+				if (stop == (Integer.parseInt(option1))) {
+
+					keep = list.get(i);
+					list.remove(i); // Remove data
+					i = 0;
+				}
+
+				stop++;
+
+				// If stop == 20 then 10 headers and 10 information prices have
+				// been read from array list
+				// the for loop is then stopped by making i = 0
+				if (stop == 20) {
+					i = 0;
+				}
 			}
 			
 			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Meal-Records.txt")));
