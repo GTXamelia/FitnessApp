@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import ie.fitnessapp.settings.OutputMessages;
+
 public class MealRecords {
 
 	public static void MealAdd(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
@@ -105,14 +107,14 @@ public class MealRecords {
 		
 	}
 	
-	public static void MealListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
+	public static String MealListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
 		
-		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));
+		BufferedReader in;
 		File file = new File("Users/"+userDetails+"/Meal-Records.txt");
 		ArrayList<String> list = new ArrayList<String>();
 		
 		// Variables
-		String line;
+		String line = null;
 		int stop = 0;
 		
 		// Clears list if any information is present
@@ -123,6 +125,8 @@ public class MealRecords {
 		// If no file is found then nothing will happen
 		if(file.exists()){
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is accessing meal records"); // Client status output to console
+			
+			in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));
 			
 			// Read from file line by line and add contents to list array
 			// Stops when it reaches end of file
@@ -145,9 +149,15 @@ public class MealRecords {
 		        	i = 0;
 		        }
 			}
+			
+			in.close(); // Closes buffered reader
 		}else{
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to show list of meals (No meal records)"); // Client status output to console
+			
+			// If file doesn't exist a message will be sent back informaing the client
+			line = "File doesn't exsist, please add records first. \n";
 		}
-		in.close(); // Closes buffered reader
+		
+		return line;
 	}
 }

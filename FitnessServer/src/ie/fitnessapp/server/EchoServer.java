@@ -39,6 +39,7 @@ class ClientServiceThread extends Thread {
 	String userDetails;
 	String option1;
 	String option2;
+	String text;
 	boolean check;
 	int maxLength;
 	double convert;
@@ -163,25 +164,31 @@ class ClientServiceThread extends Thread {
 						OutputMessages.Addon = "";
 						
 						do {
-						
-							sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.LoginMenu);
 							
+						
+							sendMessage(OutputMessages.Addon + OutputMessages.LoginMenu);
 							message = (String)in.readObject();
+							
+							OutputMessages.Addon = "";
 							
 							// Add fitness record
 							if(message.compareToIgnoreCase("1")==0){
 								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is adding a fitness record");
 								
+								// Fitness option menus
 								do{
 									try{
 										sendMessage(OutputMessages.Addon + OutputMessages.FitnessMenu);
 										option1 = (String)in.readObject();
 										
-										stay = true; // Passes
+										// Reset addon to be used later
+										OutputMessages.Addon = "";
 										
 										if(Integer.parseInt(option1) > 3 || Integer.parseInt(option1) < 1){
 											stay = false; // Fails
 											OutputMessages.Addon = "Number must be in the range of 1-3.\""+option1+"\" is not in that range\n";
+										}else{
+											stay = true;
 										}
 									}catch(NumberFormatException NumberFormatException){
 										OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
@@ -193,6 +200,7 @@ class ClientServiceThread extends Thread {
 								OutputMessages.Addon = "";
 								stay = false;
 								
+								// Set duration of activity
 								do{
 									try{
 										sendMessage(OutputMessages.Addon + "Duration of activity:");
@@ -259,14 +267,18 @@ class ClientServiceThread extends Thread {
 							else if (message.compareToIgnoreCase("3")==0){
 								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 meal records");
 								
-								MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 meal records
+								text = FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 fitness records
+								
+								OutputMessages.Addon = text;
 							}
 							
 							// View last 10 fitness records
 							else if (message.compareToIgnoreCase("4")==0){
 								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 fitness records");
 								
-								FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 fitness records
+								text = MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 meal records
+								
+								OutputMessages.Addon = text;
 							}
 							
 							// Delete record
@@ -287,9 +299,6 @@ class ClientServiceThread extends Thread {
 									FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}
 							}
-							
-							// Reset addon to be used later
-							OutputMessages.Addon = "";
 						}while(!message.equals("exit"));
 						
 					}else if(!check){

@@ -47,7 +47,7 @@ public class FitnessRecords {
 		}
 		writer.close(); // Close PrintWriter
 		
-		OutputMessages.Addon = option1 +" "+  convert +" added to file";
+		OutputMessages.Addon = option1 +" "+  convert +" added to file \n";
 	}
 
 	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1) throws IOException, ClassNotFoundException {
@@ -113,9 +113,9 @@ public class FitnessRecords {
 		OutputMessages.Addon = "Deleted "+keep1+": "+keep2+" from the file";
 	}
 	
-	public static void FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
+	public static String FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
 		
-		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));
+		BufferedReader in;
 		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
 		ArrayList<String> list = new ArrayList<String>();
 		
@@ -131,6 +131,8 @@ public class FitnessRecords {
 		// If no file is found then nothing will happen
 		if(file.exists()){
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is accessing fitness records"); // Client status output to console
+			
+			in = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));
 			
 			// Read from file line by line and add contents to list array
 			// Stops when it reaches end of file
@@ -157,12 +159,17 @@ public class FitnessRecords {
 		        	i = 0;
 		        }
 			}
+			
+			in.close(); // Closes buffered reader
 		}else{
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to show list of fitness records (No fitness records)"); // Client status output to console
+			
+			// If file doens't exist the client will be informed
+			line = "File doesn't exsist, please add records first. \n";
 		}
-		in.close(); // Closes buffered reader
 		
 		OutputMessages.Addon = line;
+		
+		return line;
 	}
-	
 }
