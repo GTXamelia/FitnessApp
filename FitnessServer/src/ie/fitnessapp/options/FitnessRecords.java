@@ -183,7 +183,7 @@ public class FitnessRecords {
 	public static void FitnessFileChecker(String keep1, String keep2, String userDetails) throws IOException, ClassNotFoundException {
 		BufferedReader br = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));     
 		if (br.readLine() == null) {
-			OutputMessages.Addon = "File is empty and there is nothing to delete \n";
+			OutputMessages.Addon = "File is empty so there is nothing to delete \n";
 		}else{
 			OutputMessages.Addon = "Deleted "+keep2+": "+keep1+" from the file";
 		}
