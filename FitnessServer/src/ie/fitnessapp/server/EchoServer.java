@@ -288,14 +288,19 @@ class ClientServiceThread extends Thread {
 								sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.DeleteMenu);
 								message = (String)in.readObject();
 								
-								sendMessage("What element would you like to delete");
-								option1 = (String)in.readObject();
-								
 								if(message.equals("1")){
 									System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to delete a meal record");
+									
+									sendMessage("What element would you like to delete");
+									option1 = (String)in.readObject();
+									
 									MealRecords.MealDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}else if(message.equals("2")){
 									System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to delete a fitness record");
+									
+									sendMessage("What element would you like to delete");
+									option1 = (String)in.readObject();
+									
 									FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}
 							}
