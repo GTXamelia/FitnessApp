@@ -86,10 +86,10 @@ public class FitnessRecords {
 		        if(stop == (Integer.parseInt(option1))){
 		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
 		        	
-		        	keep1 = list.get(i);
-		        	list.remove(i); // Remove data
-		        	keep2 = list.get(i);
-		        	list.remove(i); // Remove header
+		        	keep1 = list.get(i-1);
+		        	list.remove(i-1); // Remove data
+		        	keep2 = list.get(i-1);
+		        	list.remove(i-1); // Remove header
 		        	i = 0;
 		        }
 		        
@@ -185,7 +185,7 @@ public class FitnessRecords {
 		if (br.readLine() == null) {
 			OutputMessages.Addon = "File is empty so there is nothing to delete \n";
 		}else{
-			OutputMessages.Addon = "Deleted "+keep2+": "+keep1+" from the file";
+			OutputMessages.Addon = "Deleted "+keep2+" "+keep1+" from the file \n";
 		}
 		br.close();
 	}

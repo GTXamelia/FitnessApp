@@ -24,7 +24,7 @@ public class LoginUser {
 		}else{
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - login failed with PPSN: \""+userDetails+"\" (Doesn't exist)"); // Client status output to console
 			
-			OutputMessages.Addon = "Failed in with PPSN: \""+userDetails+"\"";
+			OutputMessages.Addon = "Failed login with PPSN: \""+userDetails+"\"";
 			
 			return false;
 		}

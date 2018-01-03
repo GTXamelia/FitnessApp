@@ -86,10 +86,10 @@ public class MealRecords {
 				
 		        if(stop == (Integer.parseInt(option1))){
 		        	
-		        	keep1 = list.get(i);
-		        	list.remove(i); // Remove header
-		        	keep2 = list.get(i);
-		        	list.remove(i); // Remove data
+		        	keep1 = list.get(i-1);
+		        	list.remove(i-1); // Remove header
+		        	keep2 = list.get(i-1);
+		        	list.remove(i-1); // Remove data
 		        	i = 0;
 		        }
 		        
@@ -154,8 +154,12 @@ public class MealRecords {
 			// Goes to end of array list get the last 10 elements in the list
 			// If there is less than 10 then it will get all of them
 			for(int i=list.size()-1; i>=0; i--){
-				 
-				line += list.get(i) + "\n";// Adds all data from list to a string
+				
+				if(list.get(i).contains("Breakfast:") || list.get(i).contains("Lunch:") || list.get(i).contains("Dinner:") || list.get(i).contains("Snack:") || list.get(i).contains("Supper:")){
+					line += ((stop/2)+1)+"."+list.get(i) + "\n";
+				}else{
+					line += list.get(i) + "\n";// Adds all data from list to a string
+				}
 				 
 		        stop++;
 		        
@@ -180,7 +184,7 @@ public class MealRecords {
 		if (br.readLine() == null) {
 			OutputMessages.Addon = "File is empty, so there is nothing to delete \n";
 		}else{
-			OutputMessages.Addon = "Deleted "+keep2+": "+keep1+" from the file";
+			OutputMessages.Addon = "Deleted "+keep2+": "+keep1+" from the file \n";
 		}
 		br.close();
 	}
