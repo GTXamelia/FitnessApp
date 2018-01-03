@@ -265,7 +265,7 @@ class ClientServiceThread extends Thread {
 							
 							// View last 10 meal records
 							else if (message.compareToIgnoreCase("3")==0){
-								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 meal records");
+								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 fitness records");
 								
 								text = FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 fitness records
 								
@@ -274,7 +274,7 @@ class ClientServiceThread extends Thread {
 							
 							// View last 10 fitness records
 							else if (message.compareToIgnoreCase("4")==0){
-								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 fitness records");
+								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is viewing their last 10 meal records");
 								
 								text = MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2);// Displays last 10 meal records
 								
