@@ -7,7 +7,8 @@ public class Runner {
 		
 		// Try EchoServer and if any error occurs it will display a message
 		try {
-			EchoServer.main(args); // Runs EchoServer which is responsible to communicate with the client(s)
+			EchoServer.main(args); // Runs EchoServer which is responsible to
+									// communicate with the client(s)
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

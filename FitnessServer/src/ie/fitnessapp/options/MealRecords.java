@@ -148,19 +148,14 @@ public class MealRecords {
 			
 			// Goes to end of array list get the last 10 elements in the list
 			// If there is less than 10 then it will get all of them
-			for(int i=list.size()-1; i>=0; i--){
-				
-				if(list.get(i).contains("Breakfast:") || list.get(i).contains("Lunch:") || list.get(i).contains("Dinner:") || list.get(i).contains("Snack:") || list.get(i).contains("Supper:")){
-					line += ((stop/2)+1)+"."+list.get(i) + "\n";
-				}else{
-					line += list.get(i) + "\n";// Adds all data from list to a string
+			for (int j = list.size() - 1; j >= 0; j--) {
+
+				line += (stop + 1) + "." + list.get(j) + "\n";
+				stop++;
+
+				if (stop == 10) {
+					j = 0;
 				}
-				 
-		        stop++;
-		        
-		        if(stop == 20){
-		        	i = 0;
-		        }
 			}
 			
 			in.close(); // Closes buffered reader
