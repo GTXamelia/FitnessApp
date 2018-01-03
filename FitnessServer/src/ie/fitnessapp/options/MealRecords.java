@@ -9,8 +9,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import ie.fitnessapp.settings.OutputMessages;
-
 public class MealRecords {
 
 	public static void MealAdd(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {

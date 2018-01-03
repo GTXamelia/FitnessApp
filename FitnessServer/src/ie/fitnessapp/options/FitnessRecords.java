@@ -110,7 +110,7 @@ public class FitnessRecords {
 			in.close(); // Close buffered reader
 		}
 		
-		OutputMessages.Addon = "Deleted "+keep1+": "+keep2+" from the file";
+		FitnessFileChecker(keep1, keep2, userDetails);
 	}
 	
 	public static String FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
@@ -171,5 +171,15 @@ public class FitnessRecords {
 		OutputMessages.Addon = line;
 		
 		return line;
+	}
+	
+	public static void FitnessFileChecker(String keep1, String keep2, String userDetails) throws IOException, ClassNotFoundException {
+		BufferedReader br = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));     
+		if (br.readLine() == null) {
+			OutputMessages.Addon = "File is empty and there is nothing to delete \n";
+		}else{
+			OutputMessages.Addon = "Deleted "+keep2+": "+keep1+" from the file";
+		}
+		br.close();
 	}
 }
