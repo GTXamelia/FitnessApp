@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import ie.fitnessapp.settings.OutputMessages;
 
 public class FitnessRecords {
-
-	public static void RecordsAdd(int clientID, Socket clientSocket, String userDetails, String option1, double convert)
-			throws IOException, ClassNotFoundException {
+	
+	// Adds fitness record to the fitness records file.
+	public static void RecordsAdd(int clientID, Socket clientSocket, String userDetails, String option1, double convert) throws IOException, ClassNotFoundException {
 
 		PrintWriter writer;
 		File file = new File("Users/" + userDetails + "/Fitness-Records.txt");
@@ -33,26 +33,16 @@ public class FitnessRecords {
 		// If there is no file found one is created and information appended to
 		// it line by line
 		if (file.exists()) {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - added " + option1 + " " + convert); // Client status
-																// output to
-																// console
-			writer = new PrintWriter(
-					new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - added " + option1 + " " + convert); // Client status output to console
+			writer = new PrintWriter( new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
 
 			writer.println(option1 + " " + convert); // Data to be written
 		} else {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - created \"Fitness-Records.txt\" and added " + option1 + " " + convert); // Client
-																									// status
-																									// output
-																									// to
-																									// console
-			file.getParentFile().mkdirs(); // Create file directory using
-											// reference 'file'
-
-			writer = new PrintWriter(
-					new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - created \"Fitness-Records.txt\" and added " + option1 + " " + convert); // Client status output to console
+			
+			
+			file.getParentFile().mkdirs(); // Create file directory using reference 'file'
+			writer = new PrintWriter(new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
 
 			writer.println(option1 + " " + convert); // Data to be written
 		}
@@ -60,9 +50,9 @@ public class FitnessRecords {
 
 		OutputMessages.Addon = option1 + " " + convert + " added to file \n";
 	}
-
-	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1)
-			throws IOException, ClassNotFoundException {
+	
+	// Deletes a record that the user selects
+	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1) throws IOException, ClassNotFoundException {
 
 		BufferedReader in;
 		File file = new File("Users/" + userDetails + "/Fitness-Records.txt");
@@ -85,7 +75,8 @@ public class FitnessRecords {
 		// the remaining elements in the array list will then be output back to
 		// the file
 		if (file.exists()) {
-
+			
+			writer = new PrintWriter(new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt")));
 			in = new BufferedReader(new FileReader("Users/" + userDetails + "/Fitness-Records.txt"));
 
 			// Read in all data from file and add to array list
@@ -114,29 +105,24 @@ public class FitnessRecords {
 				}
 			}
 
-			writer = new PrintWriter(new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt")));
-
 			// Print all elements of array list to file
 			for (String str : list) {
 				writer.println(str);
 			}
 			writer.close(); // Close writer
 			in.close(); // Close buffered reader
-			
+
 			FitnessFileChecker(keep, userDetails);
 		} else {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - tried to delete from a file which doesn't exsist"); // Client  status  output
-																				// to
-																				// console
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - tried to delete from a file which doesn't exsist"); // Client status output to console
 
 			// If file doens't exist the client will be informed
 			OutputMessages.Addon = "File doesn't exsist \n";
 		}
 	}
-
-	public static String FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1,
-			String option2) throws IOException, ClassNotFoundException {
+	
+	// Displays last 10 records in the fitness record list
+	public static String FitnessListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
 
 		BufferedReader in;
 		File file = new File("Users/" + userDetails + "/Fitness-Records.txt");
@@ -154,9 +140,7 @@ public class FitnessRecords {
 		// an array list
 		// If no file is found then nothing will happen
 		if (file.exists()) {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - is accessing fitness records"); // Client status
-			// output to console
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is accessing fitness records"); // Client status output to console
 
 			in = new BufferedReader(new FileReader("Users/" + userDetails + "/Fitness-Records.txt"));
 
@@ -183,12 +167,7 @@ public class FitnessRecords {
 
 			in.close(); // Closes buffered reader
 		} else {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - tried to show list of fitness records (No fitness records)"); // Client
-																						// status
-																						// output
-																						// to
-																						// console
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - tried to show list of fitness records (No fitness records)"); // Client status output to console
 
 			// If file doens't exist the client will be informed
 			line = "File doesn't exsist, please add records first. \n";
@@ -199,9 +178,10 @@ public class FitnessRecords {
 		return line;
 	}
 
+	// A misc class designed to create a message depending on what the user entered
 	public static void FitnessFileChecker(String keep, String userDetails) throws IOException, ClassNotFoundException {
 		BufferedReader br = new BufferedReader(new FileReader("Users/" + userDetails + "/Fitness-Records.txt"));
-		OutputMessages.Addon= "";
+		OutputMessages.Addon = ""; // Reset addon before use
 		
 		if (br.readLine() == null) {
 			OutputMessages.Addon = "File is empty so there is nothing to delete \n";

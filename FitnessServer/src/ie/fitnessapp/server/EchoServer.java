@@ -151,8 +151,7 @@ class ClientServiceThread extends Thread {
 
 						// Outputs message to server console, informing on what
 						// the user is doing
-						System.out.println("Client " + clientID + ": Address - "
-								+ clientSocket.getInetAddress().getHostName() + " - is trying to login");
+						System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is trying to login");
 
 						// Asks user to enter their name.
 						// Then stores that input in an object
@@ -162,9 +161,7 @@ class ClientServiceThread extends Thread {
 						check = LoginUser.fileStatus(clientID, clientSocket, out, userDetails);
 
 						if (check) {
-							System.out.println(
-									"Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-											+ " - logged in with PPSN: " + userDetails);
+							System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - logged in with PPSN: " + userDetails);
 
 							// Reset addon to be used later
 							OutputMessages.Addon = "";
@@ -178,9 +175,7 @@ class ClientServiceThread extends Thread {
 
 								// Add fitness record
 								if (message.compareToIgnoreCase("1") == 0) {
-									System.out.println("Client " + clientID + ": Address - "
-											+ clientSocket.getInetAddress().getHostName()
-											+ " - is adding a fitness record");
+									System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is adding a fitness record");
 
 									// Fitness option menus
 									do {
@@ -193,8 +188,7 @@ class ClientServiceThread extends Thread {
 
 											if (Integer.parseInt(option1) > 3 || Integer.parseInt(option1) < 1) {
 												stay = false; // Fails
-												OutputMessages.Addon = "Number must be in the range of 1-3.\"" + option1
-														+ "\" is not in that range\n";
+												OutputMessages.Addon = "Number must be in the range of 1-3.\"" + option1 + "\" is not in that range\n";
 											} else {
 												stay = true;
 											}
@@ -232,9 +226,7 @@ class ClientServiceThread extends Thread {
 
 								// Add meal record
 								else if (message.compareToIgnoreCase("2") == 0) {
-									System.out.println("Client " + clientID + ": Address - "
-											+ clientSocket.getInetAddress().getHostName()
-											+ " - is adding a meal record");
+									System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is adding a meal record");
 
 									do {
 										try {
@@ -245,8 +237,7 @@ class ClientServiceThread extends Thread {
 
 											if (Integer.parseInt(option1) > 5 || Integer.parseInt(option1) < 1) {
 												stay = false; // Fails
-												OutputMessages.Addon = "Number must be in the range of 1-5.\"" + option1
-														+ "\" is not in that range\n";
+												OutputMessages.Addon = "Number must be in the range of 1-5.\"" + option1 + "\" is not in that range\n";
 											}
 										} catch (NumberFormatException NumberFormatException) {
 											OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
@@ -275,44 +266,31 @@ class ClientServiceThread extends Thread {
 
 								// View last 10 meal records
 								else if (message.compareToIgnoreCase("3") == 0) {
-									System.out.println("Client " + clientID + ": Address - "
-											+ clientSocket.getInetAddress().getHostName()
-											+ " - is viewing their last 10 fitness records");
+									System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is viewing their last 10 fitness records");
 
-									text = FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails,
-											option1, option2); // Displays last
-																// 10 fitness
-																// records
+									text = FitnessRecords.FitnessListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 fitness records
 
 									OutputMessages.Addon = text;
 								}
 
 								// View last 10 fitness records
 								else if (message.compareToIgnoreCase("4") == 0) {
-									System.out.println("Client " + clientID + ": Address - "
-											+ clientSocket.getInetAddress().getHostName()
-											+ " - is viewing their last 10 meal records");
+									System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is viewing their last 10 meal records");
 
-									text = MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1,
-											option2); // Displays last 10 meal
-														// records
+									text = MealRecords.MealListLast10(clientID, clientSocket, userDetails, option1, option2); // Displays last 10 meal records
 
 									OutputMessages.Addon = text;
 								}
 
 								// Delete record
 								else if (message.compareToIgnoreCase("5") == 0) {
-									System.out.println("Client " + clientID + ": Address - "
-											+ clientSocket.getInetAddress().getHostName()
-											+ " - is trying to delete a record");
+									System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is trying to delete a record");
 
 									sendMessage(OutputMessages.Addon + "\n" + OutputMessages.DeleteMenu);
 									message = (String) in.readObject();
 
 									if (message.equals("1")) {
-										System.out.println("Client " + clientID + ": Address - "
-												+ clientSocket.getInetAddress().getHostName()
-												+ " - is trying to delete a meal record");
+										System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is trying to delete a meal record");
 
 										do {
 											try {
@@ -325,8 +303,7 @@ class ClientServiceThread extends Thread {
 
 												if (Integer.parseInt(option1) > 10 || Integer.parseInt(option1) < 1) {
 													stay = false; // Fails
-													OutputMessages.Addon = "Number must be in the range of 1-10.\""
-															+ option1 + "\" is not in that range\n";
+													OutputMessages.Addon = "Number must be in the range of 1-10.\"" + option1 + "\" is not in that range\n";
 												}
 											} catch (NumberFormatException NumberFormatException) {
 												OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
@@ -337,14 +314,9 @@ class ClientServiceThread extends Thread {
 										OutputMessages.Addon = "";
 										stay = false;
 
-										MealRecords.MealDelete(clientID, clientSocket, userDetails, option1); // Delete
-																												// a
-																												// selected
-																												// element
+										MealRecords.MealDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 									} else if (message.equals("2")) {
-										System.out.println("Client " + clientID + ": Address - "
-												+ clientSocket.getInetAddress().getHostName()
-												+ " - is trying to delete a fitness record");
+										System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is trying to delete a fitness record");
 
 										do {
 											try {
@@ -356,24 +328,18 @@ class ClientServiceThread extends Thread {
 
 												if (Integer.parseInt(option1) > 10 || Integer.parseInt(option1) < 1) {
 													stay = false; // Fails
-													OutputMessages.Addon = "Number must be in the range of 1-10.\""
-															+ option1 + "\" is not in that range\n";
+													OutputMessages.Addon = "Number must be in the range of 1-10.\"" + option1 + "\" is not in that range\n";
 												}
 											} catch (NumberFormatException NumberFormatException) {
 												OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
 											}
 										} while (!stay);
 
-										FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete
-																													// a
-																													// selected
-																													// element
+										FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 									}
 								}
 							} while (!message.equals("exit"));
 
-						} else if (!check) {
-							// TODO Output message to user saying login failed
 						}
 					}
 				} catch (ClassNotFoundException classnot) {
@@ -382,11 +348,9 @@ class ClientServiceThread extends Thread {
 
 			} while (!message.equals("exit"));
 
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - has disconnected");
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - has disconnected");
 		} catch (SocketException SocketException) {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - disconnected unexpectedly");
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - disconnected unexpectedly");
 
 		} catch (Exception e) {
 			e.printStackTrace();
