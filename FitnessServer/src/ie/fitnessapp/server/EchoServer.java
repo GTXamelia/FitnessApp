@@ -64,6 +64,10 @@ class ClientServiceThread extends Thread {
 				
 				if(message.compareToIgnoreCase("1")==0){
 					
+					// Reset addon and stay to be used later
+					OutputMessages.Addon = "";
+					stay = false;
+					
 					// Outputs message to server console, informing on what the user is doing
 					System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to register");
 					
@@ -137,6 +141,10 @@ class ClientServiceThread extends Thread {
 				}
 				
 				else if(message.compareToIgnoreCase("2")==0){
+					
+					// Reset addon to be used later
+					OutputMessages.Addon = "";
+					
 					// Outputs message to server console, informing on what the user is doing
 					System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is trying to login");
 					
@@ -224,7 +232,10 @@ class ClientServiceThread extends Thread {
 									FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete a selected element
 								}
 							}
-						}while(!message.equals("6"));
+							
+							// Reset addon to be used later
+							OutputMessages.Addon = "";
+						}while(!message.equals("exit"));
 						
 					}else if(!check){
 						// TODO Output message to user saying login failed
@@ -235,7 +246,7 @@ class ClientServiceThread extends Thread {
 				System.err.println("Data received in unknown format");
 			}
 			
-    	}while(!message.equals("8"));
+    	}while(!message.equals("exit"));
       
 		System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - has disconnected");
     }

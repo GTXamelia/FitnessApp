@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
+import ie.fitnessapp.settings.OutputMessages;
+
 public class RegisterUser {
 
 	public static void main(String[] args) {
@@ -18,7 +20,7 @@ public class RegisterUser {
 		
 		if(file.exists()){
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried registering with PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\" (Already Registered)"); // Outputs message to console displaying client status
-			
+			OutputMessages.Addon = "PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN() +"\" already exsits try again";
 		}else{
 			
 			file.getParentFile().mkdirs(); // Create file directory using reference 'file' 
@@ -44,6 +46,7 @@ public class RegisterUser {
 				e.printStackTrace();
 			}
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - registered with PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\""); // Outputs message to console displaying client status
+			OutputMessages.Addon = "Register successful with PPSN: \""+ie.fitnessapp.objects.RegisterOB.getPPSN()+"\"";
 		}
 	}
 }

@@ -53,7 +53,7 @@ public class Requester{
 					System.err.println("ERROR: Data received in unknown format");
 				}
 				
-			}while(!message.equals("8"));
+			}while(!message.equals("exit"));
 			
 		}
 		catch(UnknownHostException unknownHost){

@@ -5,12 +5,7 @@ public class OutputMessages {
 	public static final String MainMenu = 
 			"1. Register"
 			+ "\n2. Login"
-			+ "\n3. Add Fitness Record"
-			+ "\n4. Add Meal Record"
-			+ "\n5. View Last 10 Fitness Records"
-			+ "\n6. View Last 10 Meal Records"
-			+ "\n7. Delete a Record"
-			+ "\n8. Disconnect from system";
+			+ "\nEnter 'Exit' to disconnect";
 	
 	public static final String LoginMenu = 
 			"1. Add Fitness Record"
