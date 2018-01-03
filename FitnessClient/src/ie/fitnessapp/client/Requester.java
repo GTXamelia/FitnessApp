@@ -39,7 +39,7 @@ public class Requester{
 			
 			//3: Communicating with the server
 			// This section will keep running and sending data to the server
-			// Can end it by entering '8' which will end the connecton and program
+			// Can end it by entering 'exit' which will end the connection and program
 			do{
 				try{
 					message = (String)in.readObject();
