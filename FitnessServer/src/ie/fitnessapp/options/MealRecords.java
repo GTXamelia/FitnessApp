@@ -37,16 +37,14 @@ public class MealRecords {
 		if(file.exists()){
 			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Meal-Records.txt"), true));
 			
-			writer.println(option2); // Information about meal
-			writer.println(option1); // Meal header
+			writer.println(option1+" "+option2); // Meal data printed to file
 			
 		}else{
 			file.getParentFile().mkdirs(); // Create file directory using reference 'file'
 			
 			writer = new PrintWriter(new FileOutputStream(new File("Users/"+userDetails+"/Meal-Records.txt"), true));
 			
-			writer.println(option2); // Information about meal
-			writer.println(option1); // Meal header
+			writer.println(option1+" "+option2); // Meal data printed to file
 		}
 		writer.close(); // Closes PrintWriter
 	}
@@ -64,8 +62,7 @@ public class MealRecords {
 		// Variables
 		String line;
 		int stop = 0;
-		String keep1 = null;
-		String keep2 = null;
+		String keep = null;
 		
 		// If file exists data will be read in from the file and added to an array list
 		// the last 10 elements of the array list will be taken in 
@@ -86,9 +83,7 @@ public class MealRecords {
 				
 		        if(stop == (Integer.parseInt(option1))){
 		        	
-		        	keep1 = list.get(i-1);
-		        	list.remove(i-1); // Remove header
-		        	keep2 = list.get(i-1);
+		        	keep = list.get(i);
 		        	list.remove(i-1); // Remove data
 		        	i = 0;
 		        }
@@ -112,7 +107,7 @@ public class MealRecords {
 			in.close(); // Close buffered reader
 			
 			// Checks if file is empty
-			MealFileChecker(keep1, keep2, userDetails);
+			MealFileChecker(keep, userDetails);
 		}else{
 			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to delete from a file which doesn't exsist"); // Client status output to console
 			
@@ -179,12 +174,12 @@ public class MealRecords {
 		return line;
 	}
 	
-	public static void MealFileChecker(String keep1, String keep2, String userDetails) throws IOException, ClassNotFoundException {
+	public static void MealFileChecker(String keep, String userDetails) throws IOException, ClassNotFoundException {
 		BufferedReader br = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));     
 		if (br.readLine() == null) {
 			OutputMessages.Addon = "File is empty, so there is nothing to delete \n";
 		}else{
-			OutputMessages.Addon = "Deleted "+keep2+": "+keep1+" from the file \n";
+			OutputMessages.Addon = "Deleted \""+keep+"\" from the file \n";
 		}
 		br.close();
 	}

@@ -84,7 +84,7 @@ public class FitnessRecords {
 		        	//System.out.println("removed: " +stop +" "+ list.get(stop));
 		        	
 		        	System.out.println(keep = list.get(i));
-		        	list.remove(i-1); // Remove data
+		        	list.remove(i); // Remove data
 		        	i = 0;
 		        }
 		        
@@ -147,15 +147,14 @@ public class FitnessRecords {
 			
 			// Goes to end of array list get the last 10 elements in the list
 			// If there is less than 10 then it will get all of them
-			for(int i=list.size()-1; i>=0; i--){
+			for(int j = list.size() - 1; j >= 0; j--){
 				
-				line += ((stop/2)+1)+"."+list.get(i) + "\n";
-				 
-		        stop++;
-		        
-		        if(stop == 20){
-		        	i = 0;
-		        }
+				line += (stop+1)+"."+list.get(j) + "\n";
+				stop++;
+				
+				if (stop == 10){
+					j = 0;
+				}
 			}
 			
 			in.close(); // Closes buffered reader
