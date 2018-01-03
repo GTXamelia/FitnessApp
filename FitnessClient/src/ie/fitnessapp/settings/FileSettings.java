@@ -40,12 +40,12 @@ public class FileSettings {
 				output = new FileOutputStream("config.properties");
 
 				// Set the properties value
-				prop.setProperty("serverip", "192.168.0.11");
-				prop.setProperty("serverport", "2004");
+				prop.setProperty("serverip", "35.197.223.25"); // Google cloud IP
+				prop.setProperty("serverport", "2004"); // Port used
 
 				// Set object data
-				ServerOptions.setServerIp("192.168.0.11");
-				ServerOptions.setServerPort("2004");
+				ServerOptions.setServerIp("35.197.223.25"); // Google cloud IP
+				ServerOptions.setServerPort("2004"); // Port used 
 
 				// Save properties to project root folder
 				prop.store(output, null);
