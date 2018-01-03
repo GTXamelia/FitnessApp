@@ -41,6 +41,7 @@ class ClientServiceThread extends Thread {
 	String option2;
 	boolean check;
 	int maxLength;
+	double convert;
 	boolean stay = false;
 	
 
@@ -157,6 +158,10 @@ class ClientServiceThread extends Thread {
 					
 					if(check){
 						System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - logged in with PPSN: "+userDetails);
+						
+						// Reset addon to be used later
+						OutputMessages.Addon = "";
+						
 						do {
 						
 							sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.LoginMenu);
@@ -167,13 +172,45 @@ class ClientServiceThread extends Thread {
 							if(message.compareToIgnoreCase("1")==0){
 								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is adding a fitness record");
 								
-								sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.FitnessMenu);
-								option1 = (String)in.readObject();
+								do{
+									try{
+										sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.FitnessMenu);
+										option1 = (String)in.readObject();
+										
+										stay = true; // Passes
+										
+										if(Integer.parseInt(option1) > 3 || Integer.parseInt(option1) < 1){
+											stay = false; // Fails
+										}
+									}catch(NumberFormatException NumberFormatException){
+										OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
+									}
+									
+								}while(!stay);
 								
-								sendMessage("Duration of activity:");
-								option2 = (String)in.readObject();
+								// Reset addon and stay to be used later
+								OutputMessages.Addon = "";
+								stay = false;
 								
-								FitnessRecords.RecordsAdd(clientID, clientSocket, userDetails, option1, option2);
+								do{
+									try{
+										sendMessage(OutputMessages.Addon+ "\n" + "Duration of activity:");
+										option2 = (String)in.readObject();
+										
+										// Convert string to double
+										convert = Double.parseDouble(option2);
+										
+										stay = true; // Passes
+									}catch(NumberFormatException NumberFormatException){
+										OutputMessages.Addon = "Failure to set duration. Please ensure only to use numbers!\n";
+									}
+								}while(!stay);
+								
+								// Reset addon and stay to be used later
+								OutputMessages.Addon = "";
+								stay = false;
+								
+								FitnessRecords.RecordsAdd(clientID, clientSocket, userDetails, option1, convert);
 							}
 							
 							// Add meal record

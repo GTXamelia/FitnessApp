@@ -13,13 +13,10 @@ import ie.fitnessapp.settings.OutputMessages;
 
 public class FitnessRecords {
 
-	public static void RecordsAdd(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
+	public static void RecordsAdd(int clientID, Socket clientSocket, String userDetails, String option1, double convert) throws IOException, ClassNotFoundException {
 		
 		PrintWriter writer;
 		File file = new File("Users/"+userDetails+"/Fitness-Records.txt");
-		
-		// Variables
-		double convert;
 		
 		// Gets the user selection and get the associated string
 		if (option1.equals("1")){
@@ -29,9 +26,6 @@ public class FitnessRecords {
 		}else if (option1.equals("3")){
 			option1 = "Cycling:";
 		}
-		
-		// Convert string to double
-		convert = Double.parseDouble(option2);
 		
 		// Checks if file exists
 		// If file exists information is appended to it line by line
