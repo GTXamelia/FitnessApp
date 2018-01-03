@@ -122,13 +122,11 @@ public class FitnessRecords {
 			}
 			writer.close(); // Close writer
 			in.close(); // Close buffered reader
-
+			
 			FitnessFileChecker(keep, userDetails);
 		} else {
 			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - tried to delete from a file which doesn't exsist"); // Client
-																				// status
-																				// output
+					+ " - tried to delete from a file which doesn't exsist"); // Client  status  output
 																				// to
 																				// console
 
@@ -203,10 +201,12 @@ public class FitnessRecords {
 
 	public static void FitnessFileChecker(String keep, String userDetails) throws IOException, ClassNotFoundException {
 		BufferedReader br = new BufferedReader(new FileReader("Users/" + userDetails + "/Fitness-Records.txt"));
+		OutputMessages.Addon= "";
+		
 		if (br.readLine() == null) {
 			OutputMessages.Addon = "File is empty so there is nothing to delete \n";
 		} else if (keep == null) {
-			OutputMessages.Addon = "There is no record in that location, please refer to the list and try again\n";
+			OutputMessages.Addon = "The file is now empty, no further action needed";
 		} else {
 			OutputMessages.Addon = "Deleted " + keep + " " + "from the file\n";
 		}
