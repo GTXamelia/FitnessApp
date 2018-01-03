@@ -317,20 +317,22 @@ class ClientServiceThread extends Thread {
 										do {
 											try {
 
-												sendMessage(OutputMessages.Addon + "What element would you like to delete");
+												sendMessage(
+														OutputMessages.Addon + "What element would you like to delete");
 												option1 = (String) in.readObject();
 
 												stay = true; // Passes
 
 												if (Integer.parseInt(option1) > 10 || Integer.parseInt(option1) < 1) {
 													stay = false; // Fails
-													OutputMessages.Addon = "Number must be in the range of 1-10.\"" + option1 + "\" is not in that range\n";
+													OutputMessages.Addon = "Number must be in the range of 1-10.\""
+															+ option1 + "\" is not in that range\n";
 												}
 											} catch (NumberFormatException NumberFormatException) {
 												OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
 											}
 										} while (!stay);
-										
+
 										// Reset addon and stay to be used later
 										OutputMessages.Addon = "";
 										stay = false;
@@ -344,8 +346,23 @@ class ClientServiceThread extends Thread {
 												+ clientSocket.getInetAddress().getHostName()
 												+ " - is trying to delete a fitness record");
 
-										sendMessage("What element would you like to delete");
-										option1 = (String) in.readObject();
+										do {
+											try {
+
+												sendMessage(OutputMessages.Addon + "What element would you like to delete");
+												option1 = (String) in.readObject();
+
+												stay = true; // Passes
+
+												if (Integer.parseInt(option1) > 10 || Integer.parseInt(option1) < 1) {
+													stay = false; // Fails
+													OutputMessages.Addon = "Number must be in the range of 1-10.\""
+															+ option1 + "\" is not in that range\n";
+												}
+											} catch (NumberFormatException NumberFormatException) {
+												OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
+											}
+										} while (!stay);
 
 										FitnessRecords.FitnessDelete(clientID, clientSocket, userDetails, option1); // Delete
 																													// a

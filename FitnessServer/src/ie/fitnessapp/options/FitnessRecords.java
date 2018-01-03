@@ -33,15 +33,26 @@ public class FitnessRecords {
 		// If there is no file found one is created and information appended to
 		// it line by line
 		if (file.exists()) {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - added " + option1 + " " + convert); // Client status output to console
-			writer = new PrintWriter(new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
+					+ " - added " + option1 + " " + convert); // Client status
+																// output to
+																// console
+			writer = new PrintWriter(
+					new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
 
 			writer.println(option1 + " " + convert); // Data to be written
 		} else {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - created \"Fitness-Records.txt\" and added " + option1 + " " + convert); // Client status output to console
-			file.getParentFile().mkdirs(); // Create file directory using reference 'file'
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
+					+ " - created \"Fitness-Records.txt\" and added " + option1 + " " + convert); // Client
+																									// status
+																									// output
+																									// to
+																									// console
+			file.getParentFile().mkdirs(); // Create file directory using
+											// reference 'file'
 
-			writer = new PrintWriter( new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
+			writer = new PrintWriter(
+					new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt"), true));
 
 			writer.println(option1 + " " + convert); // Data to be written
 		}
@@ -58,7 +69,8 @@ public class FitnessRecords {
 		ArrayList<String> list = new ArrayList<String>();
 		PrintWriter writer;
 
-		// Clear array list in case there is remaining data from previous deletions
+		// Clear array list in case there is remaining data from previous
+		// deletions
 		list.clear();
 
 		// Variables
@@ -114,7 +126,11 @@ public class FitnessRecords {
 			FitnessFileChecker(keep, userDetails);
 		} else {
 			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - tried to delete from a file which doesn't exsist"); // Client status output to console
+					+ " - tried to delete from a file which doesn't exsist"); // Client
+																				// status
+																				// output
+																				// to
+																				// console
 
 			// If file doens't exist the client will be informed
 			OutputMessages.Addon = "File doesn't exsist \n";
@@ -140,8 +156,9 @@ public class FitnessRecords {
 		// an array list
 		// If no file is found then nothing will happen
 		if (file.exists()) {
-			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - is accessing fitness records"); // Client status
-															// output to console
+			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
+					+ " - is accessing fitness records"); // Client status
+			// output to console
 
 			in = new BufferedReader(new FileReader("Users/" + userDetails + "/Fitness-Records.txt"));
 
@@ -169,7 +186,11 @@ public class FitnessRecords {
 			in.close(); // Closes buffered reader
 		} else {
 			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName()
-					+ " - tried to show list of fitness records (No fitness records)"); // Client status output to console
+					+ " - tried to show list of fitness records (No fitness records)"); // Client
+																						// status
+																						// output
+																						// to
+																						// console
 
 			// If file doens't exist the client will be informed
 			line = "File doesn't exsist, please add records first. \n";
@@ -184,6 +205,8 @@ public class FitnessRecords {
 		BufferedReader br = new BufferedReader(new FileReader("Users/" + userDetails + "/Fitness-Records.txt"));
 		if (br.readLine() == null) {
 			OutputMessages.Addon = "File is empty so there is nothing to delete \n";
+		} else if (keep == null) {
+			OutputMessages.Addon = "There is no record in that location, please refer to the list and try again\n";
 		} else {
 			OutputMessages.Addon = "Deleted " + keep + " " + "from the file\n";
 		}
