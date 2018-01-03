@@ -218,8 +218,25 @@ class ClientServiceThread extends Thread {
 							else if(message.compareToIgnoreCase("2")==0){
 								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is adding a meal record");
 								
-								sendMessage(OutputMessages.Addon + OutputMessages.MealMenu);
-								option1 = (String)in.readObject();
+								do{
+									try{
+									sendMessage(OutputMessages.Addon + OutputMessages.MealMenu);
+									option1 = (String)in.readObject();
+
+									stay = true; // Passes
+									
+									if(Integer.parseInt(option1) > 5 || Integer.parseInt(option1) < 1){
+										stay = false; // Fails
+										OutputMessages.Addon = "Number must be in the range of 1-5.\""+option1+"\" is not in that range\n";
+									}
+									}catch(NumberFormatException NumberFormatException){
+										OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
+									}
+								}while(!stay);
+								
+								// Reset addon and stay to be used later
+								OutputMessages.Addon = "";
+								stay = false;
 								
 								sendMessage("Description of Meal:");
 								message = (String)in.readObject();

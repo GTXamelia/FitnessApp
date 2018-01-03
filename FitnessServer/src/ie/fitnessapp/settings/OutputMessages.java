@@ -13,7 +13,7 @@ public class OutputMessages {
 			+ "\n3. View Last 10 Fitness Records"
 			+ "\n4. View Last 10 Meal Records"
 			+ "\n5. Delete a Record"
-			+ "\n6. Back to Main Menu";
+			+ "\nEnter 'Exit' to disconnect";
 
 	public static final String FitnessMenu = 
 			"1. Walking"
