@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import ie.fitnessapp.settings.OutputMessages;
+
 public class MealRecords {
 
 	public static void MealAdd(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
@@ -51,7 +53,7 @@ public class MealRecords {
 	
 	public static void MealDelete(int clientID, Socket clientSocket, String userDetails, String option1) throws IOException, ClassNotFoundException {
 		
-		BufferedReader in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));
+		BufferedReader in;
 		File file = new File("Users/"+userDetails+"/Meal-Records.txt");
 		ArrayList<String> list = new ArrayList<String>();
 		PrintWriter writer;
@@ -62,12 +64,16 @@ public class MealRecords {
 		// Variables
 		String line;
 		int stop = 0;
+		String keep1 = null;
+		String keep2 = null;
 		
 		// If file exists data will be read in from the file and added to an array list
 		// the last 10 elements of the array list will be taken in 
 		// the element that the user chose will be remove from the array list
 		// the remaining elements in the array list will then be output back to the file
 		if(file.exists()){
+			
+			in = new BufferedReader(new FileReader("Users/"+userDetails+"/Meal-Records.txt"));
 			
 			// Read in all data from file and add to array list
 			while((line = in.readLine()) != null){
@@ -79,7 +85,10 @@ public class MealRecords {
 			for(int i=list.size()-1; i>=0; i--){
 				
 		        if(stop == (Integer.parseInt(option1))){
+		        	
+		        	keep1 = list.get(i);
 		        	list.remove(i); // Remove header
+		        	keep2 = list.get(i);
 		        	list.remove(i); // Remove data
 		        	i = 0;
 		        }
@@ -101,8 +110,15 @@ public class MealRecords {
 			}
 			writer.close(); // Close writer
 			in.close(); // Close buffered reader
+			
+			// Checks if file is empty
+			MealFileChecker(keep1, keep2, userDetails);
+		}else{
+			System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - tried to delete from a file which doesn't exsist"); // Client status output to console
+			
+			// If file doens't exist the client will be informed
+			OutputMessages.Addon = "File doesn't exsist \n";
 		}
-		
 	}
 	
 	public static String MealListLast10(int clientID, Socket clientSocket, String userDetails, String option1, String option2) throws IOException, ClassNotFoundException {
@@ -157,5 +173,15 @@ public class MealRecords {
 		}
 		
 		return line;
+	}
+	
+	public static void MealFileChecker(String keep1, String keep2, String userDetails) throws IOException, ClassNotFoundException {
+		BufferedReader br = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));     
+		if (br.readLine() == null) {
+			OutputMessages.Addon = "File is empty and there is nothing to delete \n";
+		}else{
+			OutputMessages.Addon = "Deleted "+keep2+": "+keep1+" from the file";
+		}
+		br.close();
 	}
 }
