@@ -122,7 +122,6 @@ public class FitnessRecords {
 		// Variables
 		String line = null;
 		int stop = 0;
-		int counter = 0;
 		
 		// Clears list if any information is present
 		// Stop data being appended twice if run twice

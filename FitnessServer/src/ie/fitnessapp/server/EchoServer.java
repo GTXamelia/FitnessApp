@@ -174,13 +174,14 @@ class ClientServiceThread extends Thread {
 								
 								do{
 									try{
-										sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.FitnessMenu);
+										sendMessage(OutputMessages.Addon + OutputMessages.FitnessMenu);
 										option1 = (String)in.readObject();
 										
 										stay = true; // Passes
 										
 										if(Integer.parseInt(option1) > 3 || Integer.parseInt(option1) < 1){
 											stay = false; // Fails
+											OutputMessages.Addon = "Number must be in the range of 1-3.\""+option1+"\" is not in that range\n";
 										}
 									}catch(NumberFormatException NumberFormatException){
 										OutputMessages.Addon = "Failure to set fitness record type. Please ensure only to use numbers!\n";
@@ -194,7 +195,7 @@ class ClientServiceThread extends Thread {
 								
 								do{
 									try{
-										sendMessage(OutputMessages.Addon+ "\n" + "Duration of activity:");
+										sendMessage(OutputMessages.Addon + "Duration of activity:");
 										option2 = (String)in.readObject();
 										
 										// Convert string to double
@@ -217,7 +218,7 @@ class ClientServiceThread extends Thread {
 							else if(message.compareToIgnoreCase("2")==0){
 								System.out.println("Client "+clientID+": Address - "+clientSocket.getInetAddress().getHostName()+" - is adding a meal record");
 								
-								sendMessage(OutputMessages.Addon+ "\n" + OutputMessages.MealMenu);
+								sendMessage(OutputMessages.Addon + OutputMessages.MealMenu);
 								option1 = (String)in.readObject();
 								
 								sendMessage("Description of Meal:");
