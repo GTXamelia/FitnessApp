@@ -174,7 +174,10 @@ public class MealRecords {
 		BufferedReader br = new BufferedReader(new FileReader("Users/"+userDetails+"/Fitness-Records.txt"));     
 		if (br.readLine() == null) {
 			OutputMessages.Addon = "File is empty, so there is nothing to delete \n";
-		}else{
+		}else if (keep == null) {
+			OutputMessages.Addon = "There is no record in that location, please refer to the list and try again\n";
+		}
+		else{
 			OutputMessages.Addon = "Deleted \""+keep+"\" from the file \n";
 		}
 		br.close();

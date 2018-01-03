@@ -7,15 +7,15 @@ import ie.fitnessapp.client.Requester;
 public class SetUp {
 
 	public static void main(String[] args) {
-		
+
 		// Runs Settings.java
 		// Responsible for creating the properties file
 		FileSettings.main(args);
-		
+
 		// Runs EstablishConnection.java
 		// Responsible for server connection (If there is a server to connect to)
 		Requester.main(args);
-		
+
 	}
 
 }
