@@ -95,13 +95,6 @@ public class MealRecords {
 				}
 
 				stop++;
-
-				// If stop == 20 then 10 headers and 10 information prices have
-				// been read from array list
-				// the for loop is then stopped by making i = 0
-				if (stop == 20) {
-					i = 0;
-				}
 			}
 
 			writer = new PrintWriter(new FileOutputStream(new File("Users/" + userDetails + "/Meal-Records.txt")));
@@ -185,9 +178,9 @@ public class MealRecords {
 		OutputMessages.Addon = "";
 
 		if (br.readLine() == null) {
-			OutputMessages.Addon = "File is empty so there is nothing to delete \n";
+			OutputMessages.Addon = "File is empty now. \n";
 		} else if (keep == null) {
-			OutputMessages.Addon = "The file is now empty, no further action needed";
+			OutputMessages.Addon = "That record doesn't exsist\n";
 		} else {
 			OutputMessages.Addon = "Deleted " + keep + " " + "from the file\n";
 		}
