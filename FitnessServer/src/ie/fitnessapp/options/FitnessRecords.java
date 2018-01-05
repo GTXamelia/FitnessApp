@@ -51,7 +51,7 @@ public class FitnessRecords {
 		OutputMessages.Addon = option1 + " " + convert + " added to file \n";
 	}
 	
-	// Deletes a record that the user selects
+	// Allows the user to delete one of the 10 from the list
 	public static void FitnessDelete(int clientID, Socket clientSocket, String userDetails, String option1) throws IOException, ClassNotFoundException {
 
 		BufferedReader in;
@@ -65,8 +65,8 @@ public class FitnessRecords {
 
 		// Variables
 		String line;
-		String keep = null;
 		int stop = 0;
+		String keep = null;
 
 		// If file exists data will be read in from the file and added to an
 		// array list
@@ -75,8 +75,7 @@ public class FitnessRecords {
 		// the remaining elements in the array list will then be output back to
 		// the file
 		if (file.exists()) {
-			
-			writer = new PrintWriter(new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt")));
+
 			in = new BufferedReader(new FileReader("Users/" + userDetails + "/Fitness-Records.txt"));
 
 			// Read in all data from file and add to array list
@@ -105,6 +104,8 @@ public class FitnessRecords {
 				}
 			}
 
+			writer = new PrintWriter(new FileOutputStream(new File("Users/" + userDetails + "/Fitness-Records.txt")));
+
 			// Print all elements of array list to file
 			for (String str : list) {
 				writer.println(str);
@@ -112,6 +113,7 @@ public class FitnessRecords {
 			writer.close(); // Close writer
 			in.close(); // Close buffered reader
 
+			// Checks if file is empty
 			FitnessFileChecker(keep, userDetails);
 		} else {
 			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - tried to delete from a file which doesn't exsist"); // Client status output to console

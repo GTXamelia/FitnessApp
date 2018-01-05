@@ -349,9 +349,10 @@ class ClientServiceThread extends Thread {
 			} while (!message.equals("exit"));
 
 			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - has disconnected");
+			OutputMessages.Addon = "";
 		} catch (SocketException SocketException) {
 			System.out.println("Client " + clientID + ": Address - " + clientSocket.getInetAddress().getHostName() + " - disconnected unexpectedly");
-
+			OutputMessages.Addon = "";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
